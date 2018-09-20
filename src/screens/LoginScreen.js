@@ -1,7 +1,9 @@
 import React, {Component} from 'react';
 import {StyleSheet, Text, View, ImageBackground, Image, TextInput, TouchableOpacity} from 'react-native';
-import bgImage from './assets/images/background2.jpg'
-import logo from './images/logo.jpg'
+import bgImage from '../assets/images/background2.jpg'
+import Router from '../routes/Router'
+import RouterNames from '../routes/RouteNames'
+//import logo from './images/logo.jpg'
 
 export default class LoginScreen extends Component {
   constructor(){
@@ -20,11 +22,15 @@ showPass = () => {
   }
 }
 
+direct() {
+  Router.navigate(RouteNames.Register)
+}
+
   render() {
     return (
       <ImageBackground source = {bgImage} style={styles.backgroundContainer}>
         <View style={styles.logoContainer}>
-            <Image source={logo} style={styles.logo} />
+            {/* <Image source={logo} style={styles.logo} /> */}
             <Text style={styles.logoText}>HUNGER MAN BUDDY</Text>
         </View>
 
@@ -43,7 +49,7 @@ showPass = () => {
               secureTextEntry={this.state.showPass}
               placeholderTextColor={'rgba(255, 255, 255, 0.7)'}
           />
-          <TouchableOpacity style ={styles.btnLogin}>
+          <TouchableOpacity style ={styles.btnLogin} onClick = {() => {direct()}}>
             <Text style={styles.text}>Login</Text>
           </TouchableOpacity>
         </View>
