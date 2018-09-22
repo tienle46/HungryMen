@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import {StyleSheet, Text, View, ImageBackground, Image, TextInput, TouchableOpacity} from 'react-native';
 import bgImage from '../assets/images/background2.jpg'
 import Router from '../routes/Router'
-import RouterNames from '../routes/RouteNames'
+import RouteNames from '../routes/RouteNames'
 //import logo from './images/logo.jpg'
 
 export default class LoginScreen extends Component {
@@ -22,7 +22,7 @@ showPass = () => {
   }
 }
 
-direct() {
+_direct() {
   Router.navigate(RouteNames.Register)
 }
 
@@ -49,7 +49,7 @@ direct() {
               secureTextEntry={this.state.showPass}
               placeholderTextColor={'rgba(255, 255, 255, 0.7)'}
           />
-          <TouchableOpacity style ={styles.btnLogin} onClick = {() => {direct()}}>
+          <TouchableOpacity style ={styles.btnLogin} onPress = {() => {this._direct()}}>
             <Text style={styles.text}>Login</Text>
           </TouchableOpacity>
         </View>
