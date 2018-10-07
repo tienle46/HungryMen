@@ -1,4 +1,4 @@
 dependencies: \
-  /Users/tienle/HungryMen/node_modules/react-native/third-party/double-conversion-1.1.5/src/bignum.cc \
-  /Users/tienle/HungryMen/node_modules/react-native/third-party/double-conversion-1.1.5/src/bignum.h \
-  /Users/tienle/HungryMen/node_modules/react-native/third-party/double-conversion-1.1.5/src/utils.h
+  /Users/macbook/HungryMen/node_modules/react-native/third-party/double-conversion-1.1.5/src/bignum.cc \
+  /Users/macbook/HungryMen/node_modules/react-native/third-party/double-conversion-1.1.5/src/bignum.h \
+  /Users/macbook/HungryMen/node_modules/react-native/third-party/double-conversion-1.1.5/src/utils.h
