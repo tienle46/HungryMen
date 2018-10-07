@@ -12,6 +12,9 @@ _directtoAddFood() {
 _directtoFood() {
   Router.navigate(RouteNames.Food)
 }
+_directtoProfile(){
+    Router.navigate(RouteNames.Profile)
+}
 
 
     render() {

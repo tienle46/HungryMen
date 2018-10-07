@@ -85,6 +85,7 @@ nocolorWordTitle: {
 logoText: {
     color: 'white',
     fontSize: 30,
-    fontWeight: 'bold'
+    fontWeight: 'bold',
+    alignSelf: 'center'
 },
 });

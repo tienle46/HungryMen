@@ -8,9 +8,6 @@ export default class AddFoodScreen extends Component {
     _directtoMenu() {
   Router.navigate(RouteNames.Menu)
 }
-    _directtoFood(){
-  Router.navigate(RouteNames.Food)      
-    }
 
 
 
