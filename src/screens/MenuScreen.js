@@ -27,12 +27,12 @@ _directtoProfile(){
                 <Text style={styles.nocolorWord}>Next meal in <Text style={styles.coloredWord}> 20 min </Text> | Daily calories left <Text style={styles.coloredWord}> 1000 </Text> </Text>
             </View>
             <View style={styles.meal}>
-                <Text style={styles.nocolorWordTitle}>Breakfast <Text style={styles.coloredWord}> 8:00</Text> 300</Text>
+                <Text style={styles.nocolorWordTitle}>Breakfast <Text style={styles.coloredWord}> 8:00</Text> <Text style={styles.number}>300</Text></Text>
             </View>
 
             <View style={styles.breakfastContent}>
-                <Text style={styles.nocolorWord}>Eggs 150</Text>
-                <Text style={styles.nocolorWord}>Oatmeal 150</Text>
+                <Text style={styles.nocolorWord}>Eggs <Text style={styles.number}>150</Text></Text>
+                <Text style={styles.nocolorWord}>Oatmeal <Text style={styles.number}> 150</Text></Text>
             </View>
 
             <TouchableOpacity style={styles.addFood} onPress = {() => {this._directtoAddFood()}}>
@@ -45,7 +45,7 @@ _directtoProfile(){
             </View>
 
             <View style={styles.breakfastContent}>
-                <Text style={styles.nocolorWord}>Rice 280</Text>
+                <Text style={styles.nocolorWord}>Rice <Text style={styles.number}>280</Text></Text>
                 <Text style={styles.nocolorWord}>Teriyaki chicken 300</Text>
                 <Text style={styles.nocolorWord}>Carrots 120</Text>
             </View>
@@ -78,30 +78,61 @@ _directtoProfile(){
 }
 const styles = StyleSheet.create({
 backgroundContainer: {
-    flex: 1,
     justifyContent: 'center',
     backgroundColor: 'rgba(32,32,32,1)',
-    borderWidth: 1
+    borderWidth: 1,
+    flex: 1,
+    borderColor: 'white'
   },  
 coloredWord: {
     color: 'rgba(80,198,209,0.8)',
-    fontSize: 15
+    fontSize: 15,
+    borderColor: 'white',
+    borderWidth: 5,
+    alignItems: 'center'
 },
 nocolorWord: {
     color: 'white',
-    fontSize: 15
+    fontSize: 15,
+    alignItems: 'flex-start',
+    borderColor: 'white',
+    borderWidth: 1
 },
 nocolorWordTitle: {
     color: 'white',
-    fontSize: 20
+    fontSize: 20,
+    borderColor: 'white',
+    borderWidth: 1,
+    justifyContent: 'flex-start'
 },
 logoText: {
     color: 'white',
     fontSize: 30,
     fontWeight: 'bold',
-    alignSelf: 'center'
+    justifyContent: 'center',
+    borderColor: 'white',
+    borderWidth: 1,
 },
 reminder: {
-    alignSelf: 'center'
+    alignItems: 'center',
+    borderColor: 'white',
+    borderWidth: 1,
+
+},
+number: {
+    alignItems: 'flex-end'
+},
+
+meal: {
+    flex:1,
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'stretch'
+},
+nocolorWordTitle1: {
+    justifyContent: 'flex-start'
+},
+number1: {
+    justifyContent: 'flex-end'
 }
 });

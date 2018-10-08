@@ -67,9 +67,8 @@ const styles = StyleSheet.create({
     backgroundColor: 'rgba(32,32,32,1)'
   },
   logoContainer: {
-    alignItems: 'center',
-    //backgroundColor: 'rgba(32,32,32,0.8)',
-    backgroundColor: 'transparent'
+    alignItems: 'stretch',
+    backgroundColor: '#262626',
   },
   logo: {
     width: 120,
@@ -80,6 +79,7 @@ const styles = StyleSheet.create({
     fontSize: 30,
     marginTop: 10,
     fontWeight: 'bold',
+
   },
   inputContainer:{
     marginTop: 20

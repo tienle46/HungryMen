@@ -23,31 +23,22 @@ export default class FoodScreen extends Component {
             </View>
             <View style={styles.meal}>
                 <Text style={styles.nocolorWordTitle}>Suggested foods</Text>
-            </View>
-
-            <TouchableOpacity style={styles.addFood}>
                 <Text style={styles.coloredWord}>Broccoli</Text>
                 <Text style={styles.coloredWord}>Nuts</Text>
                 <Text style={styles.coloredWord}>Greek yogurt</Text>
-            </TouchableOpacity>
+            </View>
 
 
             <View style={styles.meal}>
                 <Text style={styles.nocolorWordTitle}>Latest foods</Text>
-            </View>
-
-            <TouchableOpacity style={styles.addFood}>
                 <Text style={styles.coloredWord}>Eggs</Text>
                 <Text style={styles.coloredWord}>Oatmeal</Text>
-            </TouchableOpacity>
+            </View>
 
             <View style={styles.meal}>
                 <Text style={styles.nocolorWordTitle}>Favorite foods</Text>
-            </View>
-
-            <TouchableOpacity style={styles.addFood}>
                 <Text style={styles.coloredWord}>Eggs</Text>
-            </TouchableOpacity>
+            </View>
 
 
             <TouchableOpacity style ={styles.btnLogin} onPress = {() => {this._directtoMenu()}}>
@@ -88,4 +79,7 @@ logoText: {
     fontWeight: 'bold',
     alignSelf: 'center'
 },
+reminder: {
+    justifyContent: 'center'
+}
 });
