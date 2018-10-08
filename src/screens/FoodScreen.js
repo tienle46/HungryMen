@@ -21,6 +21,7 @@ export default class FoodScreen extends Component {
             <View style={styles.reminder}>
                 <Text style={styles.nocolorWord}>    Next meal in <Text style={styles.coloredWord}> 20 min </Text> | Daily calories left <Text style={styles.coloredWord}> 1000 </Text> </Text>
             </View>
+            <TextInput style={styles.searchInput} />
             <View style={styles.suggested}>
                 <Text style={styles.nocolorWordTitle}> Suggested foods</Text>
             </View>
@@ -101,22 +102,34 @@ reminder: {
 suggestedContent: {
     flexDirection: 'column',
     flex: 0.2,
-    justifyContent: 'space-between',  
+    justifyContent: 'space-between', 
+    height: 100
 },
 latestContent: {
     flexDirection: 'column',
     flex: 0.2,
-    justifyContent: 'space-between'
+    justifyContent: 'space-between',
 },
 suggested: {
     backgroundColor: 'rgba(32,32,32,1)',
+    height: 30
 },
 latest: {
     backgroundColor: 'rgba(32,32,32,1)',
+    height: 30
 },
 favorite: {
     backgroundColor: 'rgba(32,32,32,1)',
-}
-   
+    height: 30
+},
+searchInput: {
+    width: 300,
+    height: 35,
+    fontSize: 16,
+    paddingLeft: 25,
+    backgroundColor: '#262626',
+    color: 'white',
+    marginHorizontal: 25
+}  
 
 });
