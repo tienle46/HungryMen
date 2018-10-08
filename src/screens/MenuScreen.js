@@ -3,6 +3,7 @@ import {StyleSheet, Text, View, ImageBackground, Image, TextInput, TouchableOpac
 import Router from '../routes/Router'
 import RouteNames from '../routes/RouteNames'
 import { createBottomTabNavigator } from 'react-navigation'
+import MealGroup from '../components/MealGroup'
 
 export default class MenuScreen extends Component {
 
@@ -20,49 +21,10 @@ _directtoProfile(){
     render() {
         return(
         <ImageBackground style={styles.backgroundContainer}>
-            <View style={styles.logoContainer}>
-                <Text style={styles.logoText}>HOME</Text>
-            </View>
-            <View style={styles.reminder}>
+            {/* <View style={styles.reminder}>
                 <Text style={styles.nocolorWord}>Next meal in <Text style={styles.coloredWord}> 20 min </Text> | Daily calories left <Text style={styles.coloredWord}> 1000 </Text> </Text>
-            </View>
-            <View style={styles.meal}>
-                <Text style={styles.nocolorWordTitle}>Breakfast <Text style={styles.coloredWord}> 8:00</Text> <Text style={styles.number}>300</Text></Text>
-            </View>
-
-            <View style={styles.breakfastContent}>
-                <Text style={styles.nocolorWord}>Eggs <Text style={styles.number}>150</Text></Text>
-                <Text style={styles.nocolorWord}>Oatmeal <Text style={styles.number}> 150</Text></Text>
-            </View>
-
-            <TouchableOpacity style={styles.addFood} onPress = {() => {this._directtoAddFood()}}>
-                <Text style={styles.coloredWord}>+ Add food</Text>
-            </TouchableOpacity>
-
-
-            <View style={styles.meal}>
-                <Text style={styles.nocolorWordTitle}>Lunch <Text style={styles.coloredWord}> 12:00</Text> 700</Text>
-            </View>
-
-            <View style={styles.breakfastContent}>
-                <Text style={styles.nocolorWord}>Rice <Text style={styles.number}>280</Text></Text>
-                <Text style={styles.nocolorWord}>Teriyaki chicken 300</Text>
-                <Text style={styles.nocolorWord}>Carrots 120</Text>
-            </View>
-
-            <TouchableOpacity style={styles.addFood} onPress = {() => {this._directtoAddFood()}}>
-                <Text style={styles.coloredWord}>+ Add food</Text>
-            </TouchableOpacity>
-
-            <View style={styles.meal}>
-                <Text style={styles.nocolorWordTitle}>Dinner <Text style={styles.coloredWord}> 18:00</Text></Text>
-            </View>
-
-            <TouchableOpacity style={styles.addFood} onPress = {() => {this._directtoAddFood()}} >
-                <Text style={styles.coloredWord}>+ Add food</Text>
-            </TouchableOpacity>
-
-
+            </View> */}
+            <MealGroup/>
 
             <TouchableOpacity style ={styles.btnLogin} onPress = {() => {this._directtoFood()}}>
                 <Text style={styles.text}>Food Page</Text>
@@ -79,10 +41,8 @@ _directtoProfile(){
 const styles = StyleSheet.create({
 backgroundContainer: {
     justifyContent: 'center',
-    backgroundColor: 'rgba(32,32,32,1)',
-    borderWidth: 1,
+    backgroundColor: 'rgb(38,38,38)',
     flex: 1,
-    borderColor: 'white'
   },  
 coloredWord: {
     color: 'rgba(80,198,209,0.8)',
