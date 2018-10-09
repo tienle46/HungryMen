@@ -8,7 +8,7 @@ import { StackNavigator } from 'react-navigation'
 
 //import logo from './images/logo.jpg'
 var SQLite = require('react-native-sqlite-storage')
-db = SQLite.openDatabase({name: 'hungryman.sqlite', createFromLocation : "~www/hungryman.sqlite", location: 'Library'}, (open) => {console.warn('asdasd')}, (e) => {});
+db = SQLite.openDatabase({name: 'abc', createFromLocation : "~www/hungryman.sqlite", location: 'Library'}, (open) => {console.log('asdasd')}, (e) => {console.log(e)});
 export default class LoginScreen extends Component {
 
   constructor() {
@@ -29,6 +29,7 @@ export default class LoginScreen extends Component {
   onLoginBtnClicked = () => {
     db.transaction((tx) => {
       var sql = 'SELECT * FROM user WHERE username =\'' + this.state.username + '\''
+      // var sql = 'SELECT * FROM user'
       try {
         tx.executeSql(sql, [],(tx,results) => {
           var len = results.rows.length
@@ -37,7 +38,7 @@ export default class LoginScreen extends Component {
           } else {
             var row = results.rows.item(0)
             if (this.state.password == row.password) {
-              console.warn('thanh cong')
+              this._directtoMenu()
             } else {
               console.warn('sai mat khau')
             }
@@ -47,11 +48,8 @@ export default class LoginScreen extends Component {
       catch(e) {
         console.log('error:' +e)
       }
-      
     })
-    
   }
-
 
   render() {
     return (
@@ -90,7 +88,6 @@ export default class LoginScreen extends Component {
     );
   }
 }
-
 
 var height = Dimensions.get('window').height;
 var width = Dimensions.get('window').width;

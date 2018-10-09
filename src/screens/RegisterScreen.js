@@ -3,46 +3,91 @@ import {StyleSheet, Text, View, ImageBackground, Image, TextInput, TouchableOpac
 import Router from '../routes/Router'
 import RouteNames from '../routes/RouteNames'
 
+var SQLite = require('react-native-sqlite-storage')
+db = SQLite.openDatabase({name: 'abc', createFromLocation : "~www/hungryman.sqlite", location: 'Library'}, (open) => {console.log('asdasd')}, (e) => {console.log(e)});
 export default class RegisterScreen extends Component {
-    _directtoLogin() {
-  Router.navigate(RouteNames.Login)
-}
-    render() {
-        return(
-            <ImageBackground style={styles.backgroundContainer}>
+  constructor() {
+    super()
+    this.state = {
+      username:'',
+      password:'',
+      curWeight: 0,
+      goal: 0,
+    }
+  }
+  _directtoLogin() {
+    Router.navigate(RouteNames.Login)
+  }
+
+  onRegisterBtnClicked = () => {
+    if (this.state.username === '' || this.state.password === '') {
+      console.warn('vui long nhap day du thong tin')
+    }
+    db.transaction((tx) => {
+      var getUserSql = 'SELECT * FROM user WHERE username =\'' + this.state.username + '\''
+      try {
+        tx.executeSql(getUserSql, [],(tx,results) => {
+          var len = results.rows.length
+          if (len == 0) {
+            var insertSql = 'INSERT INTO User (username, password, weight, goal) VALUES(\'' + this.state.username + '\',\'' + this.state.password + '\',' + this.state.curWeight +',' + this.state.goal + ')'
+
+            try {
+              tx.executeSql(insertSql, [], (tx,results) => {
+                console.warn('ok')
+                this._directtoLogin()
+              })
+            }
+            catch(e) {
+              console.log('error:' + e)
+            }
+          } else {
+            console.warn('username da duoc su dung')
+          }
+        })
+      }
+      catch(e) {
+        console.log('error:' +e)
+      } 
+    })
+  } 
+  render() {
+    return(
+      <ImageBackground style={styles.backgroundContainer}>
         <View style={styles.logoContainer}>
-            <Text style={styles.logoText}>REGISTER</Text>
+          <Text style={styles.logoText}>REGISTER</Text>
         </View>
 
 
         <View style={styles.inputContainer}>
-        <Text style={styles.userText}>Email *</Text>
+          <Text style={styles.userText}>Email *</Text>
           <TextInput
-              style={styles.input}
-
+          style={styles.input}
+          onChangeText = {username => this.setState({username})}
           />
-
         </View>
+    
         <View style={styles.inputContainer}>
           <Text style={styles.userText}>Password *</Text>
           <TextInput
-              style={styles.input}
+          style={styles.input}
+          onChangeText = {password => this.setState({password})}
           />
         </View>
         <View style={styles.inputContainer}>
           <Text style={styles.userText}>Current bodyweight</Text>
           <TextInput
-              style={styles.input}
+          style={styles.input}
+          onChangeText = {curWeight => this.setState({curWeight})}
           />
         </View>
-         <View style={styles.inputContainer}>
+        <View style={styles.inputContainer}>
           <Text style={styles.userText}>Goal</Text>
           <TextInput
-              style={styles.input}
+          style={styles.input}
+          onChangeText = {goal => this.setState({goal})}
           />
         </View>
-        
-        <TouchableOpacity style ={styles.btnSignup} onPress = {() => {this._directtoLogin()}}>
+        <TouchableOpacity style ={styles.btnSignup} onPress = {this.onRegisterBtnClicked}>
           <Text style={styles.text}>Register</Text>
         </TouchableOpacity>
       </ImageBackground>
