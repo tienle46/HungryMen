@@ -7,15 +7,51 @@ import { StackNavigator } from 'react-navigation'
 
 
 //import logo from './images/logo.jpg'
-
+var SQLite = require('react-native-sqlite-storage')
+db = SQLite.openDatabase({name: 'hungryman.sqlite', createFromLocation : "~www/hungryman.sqlite", location: 'Library'}, (open) => {console.warn('asdasd')}, (e) => {});
 export default class LoginScreen extends Component {
-_directtoRegister() {
-  Router.navigate(RouteNames.Register)
-}
 
-_directtoMenu() {
-  Router.navigate(RouteNames.Menu)
-}
+  constructor() {
+    super()
+    this.state = {
+      username: '',
+      password: ''
+    }
+  }
+  _directtoRegister() {
+    Router.navigate(RouteNames.Register)
+  }
+
+  _directtoMenu() {
+    Router.navigate(RouteNames.Menu)
+  }
+
+  onLoginBtnClicked = () => {
+    db.transaction((tx) => {
+      var sql = 'SELECT * FROM user WHERE username =\'' + this.state.username + '\''
+      try {
+        tx.executeSql(sql, [],(tx,results) => {
+          var len = results.rows.length
+          if (len == 0) {
+            console.warn('tai khoan khong ton tai')
+          } else {
+            var row = results.rows.item(0)
+            if (this.state.password == row.password) {
+              console.warn('thanh cong')
+            } else {
+              console.warn('sai mat khau')
+            }
+          }
+        })
+      }
+      catch(e) {
+        console.log('error:' +e)
+      }
+      
+    })
+    
+  }
+
 
   render() {
     return (
@@ -29,6 +65,7 @@ _directtoMenu() {
         <Text style={styles.userText}>Email</Text>
           <TextInput
               style={styles.input}
+              onChangeText = {username => this.setState({username})}
 
           />
         </View>
@@ -36,8 +73,9 @@ _directtoMenu() {
           <Text style={styles.userText}>Password</Text>
           <TextInput
               style={styles.input}
+              onChangeText = {password => this.setState({password})}
           />
-          <TouchableOpacity style ={styles.btnLogin} onPress = {() => {this._directtoMenu()}}>
+          <TouchableOpacity style ={styles.btnLogin} onPress = {this.onLoginBtnClicked}>
             <Text style={styles.text}>Login</Text>
           </TouchableOpacity>
         </View>
