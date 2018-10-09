@@ -11,7 +11,7 @@ export default class HeaderTitle extends Component {
         return(
             <View style = {styles.container}>
                 <Image style = {styles.image} source = {icon} />
-                <Text style = {styles.text}>LOGIN</Text>
+                <Text style = {styles.text}>{this.props.title}</Text>
             </View>
         )
     }
@@ -24,11 +24,9 @@ const styles = StyleSheet.create({
         height: 30,
         width: 38,
         marginRight: 9,
-        paddingBottom: 10
     },
     text: {
         fontSize: 30,
         color: 'white',
-        paddingBottom: 20
     }
 })

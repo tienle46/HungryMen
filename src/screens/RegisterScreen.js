@@ -2,6 +2,7 @@ import React, {Component} from 'react'
 import {StyleSheet, Text, View, ImageBackground, Image, TextInput, TouchableOpacity, Picker} from 'react-native'
 import Router from '../routes/Router'
 import RouteNames from '../routes/RouteNames'
+import HeaderTitle from '../components/HeaderTitle'
 
 var SQLite = require('react-native-sqlite-storage')
 db = SQLite.openDatabase({name: 'abc', createFromLocation : "~www/hungryman.sqlite", location: 'Library'}, (open) => {console.log('asdasd')}, (e) => {console.log(e)});
@@ -15,6 +16,18 @@ export default class RegisterScreen extends Component {
       goal: 0,
     }
   }
+
+  static navigationOptions = {
+        headerTitle:(
+        <HeaderTitle 
+            title = 'REGISTER'
+        />
+        ),
+        headerStyle: {
+        backgroundColor: 'rgb(32,32,32)',
+        },
+    }
+
   _directtoLogin() {
     Router.navigate(RouteNames.Login)
   }

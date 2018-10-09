@@ -3,11 +3,22 @@ import {StyleSheet, Text, View, ImageBackground, Image, TextInput, TouchableOpac
 import Router from '../routes/Router'
 import RouteNames from '../routes/RouteNames'
 import { createBottomTabNavigator } from 'react-navigation'
+import HeaderTitle from '../components/HeaderTitle'
 
 export default class AddFoodScreen extends Component {
+    static navigationOptions = {
+        headerTitle:(
+        <HeaderTitle 
+            title = 'ADD FOOD'
+        />
+        ),
+        headerStyle: {
+        backgroundColor: 'rgb(32,32,32)',
+        },
+    }
     _directtoMenu() {
-  Router.navigate(RouteNames.Menu)
-}
+        Router.navigate(RouteNames.Menu)
+    }
 
 
 

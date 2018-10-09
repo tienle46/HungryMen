@@ -20,7 +20,7 @@ export default class MealGroup extends Component {
             },
             addFoodBtnText: {
                 color: 'rgb(80,198,209)',
-                fontSize: 16
+                fontSize: 18
             },
             buttonContainer: {
                 width: Dimensions.get('window').width * 0.95,

@@ -14,7 +14,9 @@ db = SQLite.openDatabase({name: 'abc', createFromLocation : "~www/hungryman.sqli
 export default class LoginScreen extends Component {
   static navigationOptions = {
     headerTitle:(
-      <HeaderTitle />
+      <HeaderTitle
+        title = 'LOGIN'
+       />
     ),
     headerStyle: {
       backgroundColor: 'rgb(32,32,32)',
