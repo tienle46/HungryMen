@@ -4,7 +4,7 @@ import bgImage from '../assets/images/background2.jpg'
 import Router from '../routes/Router'
 import RouteNames from '../routes/RouteNames'
 import { StackNavigator } from 'react-navigation'
-
+import Toast, {positions, durations} from '../components/Toast'
 
 //import logo from './images/logo.jpg'
 var SQLite = require('react-native-sqlite-storage')
@@ -34,6 +34,7 @@ export default class LoginScreen extends Component {
         tx.executeSql(sql, [],(tx,results) => {
           var len = results.rows.length
           if (len == 0) {
+            Toast.show('tai khoan khong ton tai')
             console.warn('tai khoan khong ton tai')
           } else {
             var row = results.rows.item(0)
