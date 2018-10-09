@@ -5,11 +5,21 @@ import Router from '../routes/Router'
 import RouteNames from '../routes/RouteNames'
 import { StackNavigator } from 'react-navigation'
 import Toast, {positions, durations} from '../components/Toast'
+import HeaderTitle from '../components/HeaderTitle'
+const icon = require('../assets/images/logo.png')
 
 //import logo from './images/logo.jpg'
 var SQLite = require('react-native-sqlite-storage')
 db = SQLite.openDatabase({name: 'abc', createFromLocation : "~www/hungryman.sqlite", location: 'Library'}, (open) => {console.log('asdasd')}, (e) => {console.log(e)});
 export default class LoginScreen extends Component {
+  static navigationOptions = {
+    headerTitle:(
+      <HeaderTitle />
+    ),
+    headerStyle: {
+      backgroundColor: 'rgb(32,32,32)',
+    },
+  }
 
   constructor() {
     super()
@@ -23,25 +33,23 @@ export default class LoginScreen extends Component {
   }
 
   _directtoMenu() {
-    Router.navigate(RouteNames.Menu)
+    Router.navigate(RouteNames.ContentStack)
   }
 
   onLoginBtnClicked = () => {
     db.transaction((tx) => {
       var sql = 'SELECT * FROM user WHERE username =\'' + this.state.username + '\''
-      // var sql = 'SELECT * FROM user'
       try {
         tx.executeSql(sql, [],(tx,results) => {
           var len = results.rows.length
           if (len == 0) {
-            Toast.show('tai khoan khong ton tai')
-            console.warn('tai khoan khong ton tai')
+            Toast.show('Invalid account')
           } else {
             var row = results.rows.item(0)
             if (this.state.password == row.password) {
               this._directtoMenu()
             } else {
-              console.warn('sai mat khau')
+              Toast.show('Wrong password')
             }
           }
         })

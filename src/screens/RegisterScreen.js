@@ -21,7 +21,7 @@ export default class RegisterScreen extends Component {
 
   onRegisterBtnClicked = () => {
     if (this.state.username === '' || this.state.password === '') {
-      console.warn('vui long nhap day du thong tin')
+      Toast.show('Missing username or password')
     }
     db.transaction((tx) => {
       var getUserSql = 'SELECT * FROM user WHERE username =\'' + this.state.username + '\''
@@ -33,7 +33,7 @@ export default class RegisterScreen extends Component {
 
             try {
               tx.executeSql(insertSql, [], (tx,results) => {
-                console.warn('ok')
+                Toast.show('Successfully registered')
                 this._directtoLogin()
               })
             }
@@ -41,7 +41,7 @@ export default class RegisterScreen extends Component {
               console.log('error:' + e)
             }
           } else {
-            console.warn('username da duoc su dung')
+            Toast.show('Username already existed')
           }
         })
       }

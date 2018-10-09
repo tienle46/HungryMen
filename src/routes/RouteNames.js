@@ -5,5 +5,8 @@ export default {
     Menu: 'MenuScreen',
     Food: 'FoodScreen',
     Profile: 'ProfileScreen',
-    Add: 'AddFoodScreen'
+    Add: 'AddFoodScreen',
+    FoodStack: 'FoodStack',
+    ContentScreen: 'ContentScreen',
+    ContentStack: 'ContentStack'
 }

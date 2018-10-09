@@ -1,4 +1,4 @@
-import React, {Component} from 'react'
+import React, {Component} from 'react';
 import {StyleSheet, Text, View, ImageBackground, Image, TextInput, TouchableOpacity, Picker} from 'react-native'
 import Router from '../routes/Router'
 import RouteNames from '../routes/RouteNames'
@@ -6,35 +6,36 @@ import { createBottomTabNavigator } from 'react-navigation'
 import MealGroup from '../components/MealGroup'
 
 export default class MenuScreen extends Component {
+    constructor() {
+        super()
+    }
 
-_directtoAddFood() {
-  Router.navigate(RouteNames.Add)
-}
-_directtoFood() {
-  Router.navigate(RouteNames.Food)
-}
-_directtoProfile(){
-    Router.navigate(RouteNames.Profile)
-}
-
+    _directtoAddFood() {
+        Router.navigate(RouteNames.Add)
+    }
+    _directtoFood() {
+        Router.navigate(RouteNames.Food)
+    }
+    _directtoProfile(){
+        Router.navigate(RouteNames.Profile)
+    }
 
     render() {
         return(
-        <ImageBackground style={styles.backgroundContainer}>
-            {/* <View style={styles.reminder}>
-                <Text style={styles.nocolorWord}>Next meal in <Text style={styles.coloredWord}> 20 min </Text> | Daily calories left <Text style={styles.coloredWord}> 1000 </Text> </Text>
-            </View> */}
-            <MealGroup/>
+            <ImageBackground style={styles.backgroundContainer}>
+                {/* <View style={styles.reminder}>
+                    <Text style={styles.nocolorWord}>Next meal in <Text style={styles.coloredWord}> 20 min </Text> | Daily calories left <Text style={styles.coloredWord}> 1000 </Text> </Text>
+                </View> */}
+                <MealGroup/>
 
-            <TouchableOpacity style ={styles.btnLogin} onPress = {() => {this._directtoFood()}}>
-                <Text style={styles.text}>Food Page</Text>
-            </TouchableOpacity>
-            <TouchableOpacity style ={styles.btnLogin} onPress = {() => {this._directtoProfile()}}>
-                <Text style={styles.text}>Profile Page</Text>
-            </TouchableOpacity>
-            
-        </ImageBackground>
-
+                <TouchableOpacity style ={styles.btnLogin} onPress = {() => {this._directtoFood()}}>
+                    <Text style={styles.text}>Food Page</Text>
+                </TouchableOpacity>
+                <TouchableOpacity style ={styles.btnLogin} onPress = {() => {this._directtoProfile()}}>
+                    <Text style={styles.text}>Profile Page</Text>
+                </TouchableOpacity>
+                
+            </ImageBackground>
     );
   }
 }
