@@ -14,9 +14,6 @@ const ContentStack = createBottomTabNavigator(
         Meal: {
             screen: MenuScreen,
         },
-        Food: {
-            screen: FoodStack,
-        },
         Profile: {
             screen: ProfileScreen,
         },

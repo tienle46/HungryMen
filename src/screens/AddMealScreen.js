@@ -8,9 +8,10 @@ import DropdownMenu from 'react-native-dropdown-menu';
 import DatePicker from 'react-native-datepicker'
 import moment from 'moment'
 import Toast, {positions, durations} from '../components/Toast'
+import Storage from '../cores/Storage'
 
 var SQLite = require('react-native-sqlite-storage')
-db = SQLite.openDatabase({name: 'abc', createFromLocation : "~www/hungryman.sqlite", location: 'Library'}, (open) => {console.log('asdasd')}, (e) => {console.log(e)});
+db = SQLite.openDatabase({name: 'tienle', createFromLocation : "~www/hungryman.sqlite", location: 'Library'}, (open) => {console.log('asdasd')}, (e) => {console.log(e)});
 export default class AddMealScreen extends Component {
     constructor() {
         super()
@@ -30,7 +31,7 @@ export default class AddMealScreen extends Component {
         backgroundColor: 'rgb(32,32,32)',
         },
     }
-    _directtoMenu() {
+    _directToMenu() {
         Router.navigate(RouteNames.Menu)
     }
 
@@ -39,18 +40,20 @@ export default class AddMealScreen extends Component {
             Toast.show('Please select time')
         }
         var dateToUnix = moment(this.state.date,"YYYY-MM-DD, hh:mm").unix()
-        console.warn(Router.getParam(this,'userId'))
-        // var insertSql = 'INSERT INTO Meal (type, date, userId) VALUES(\'' + this.state.username + '\',\'' + this.state.password + '\',' + this.state.curWeight +',' + this.state.goal + ')'
-
-        //     try {
-        //       tx.executeSql(insertSql, [], (tx,results) => {
-        //         Toast.show('Successfully registered')
-        //         this._directtoLogin()
-        //       })
-        //     }
-        //     catch(e) {
-        //       console.log('error:' + e)
-        //     }
+        Storage.get('userId').then(res => {
+            var insertSql = 'INSERT INTO Meal (type, date, userId) VALUES(' + this.state.mealTypeSelection + ','+ dateToUnix + ',' + res + ')'
+            db.transaction((tx) => {
+                try {
+                    tx.executeSql(insertSql, [], (tx,results) => {
+                    Toast.show('Successfully added meal')
+                    this._directToMenu()
+                    })
+                }catch(e) {
+                    console.log('error:' + e)
+                }
+            })
+        })
+        
     }
 
 

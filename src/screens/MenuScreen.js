@@ -6,48 +6,56 @@ import { createBottomTabNavigator } from 'react-navigation'
 import MealGroup from '../components/MealGroup'
 import HeaderTitle from '../components/HeaderTitle'
 import moment from 'moment';
+import Storage from '../cores/Storage'
 
 var SQLite = require('react-native-sqlite-storage')
-db = SQLite.openDatabase({name: 'abc', createFromLocation : "~www/hungryman.sqlite", location: 'Library'}, (open) => {console.log('asdasd')}, (e) => {console.log(e)});
-var meals = []
+db = SQLite.openDatabase({name: 'tienle', createFromLocation : "~www/hungryman.sqlite", location: 'Library'}, (open) => {console.log('asdasd')}, (e) => {console.log(e)});
 export default class MenuScreen extends Component {
+    static navigationOptions = {
+        header: null
+    }
 
     constructor() {
         super()
-        const ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
+        this.ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
         this.state = {
-        dataSource: ds.cloneWithRows(meals),
+        dataSource: this.ds.cloneWithRows([]),
         }
     }
 
     componentDidMount() {
-        console.warn(Router.getParam(this,'dmm'))
-        var userId = Router.getParam(this, 'userId')
-        var today = moment().format("MM-DD-YYYY")
-        db.transaction((tx) => {
-        var sql = 'SELECT * FROM meal WHERE userId=' + userId
-        try {
-            tx.executeSql(sql, [],(tx,results) => {
-                var len = results.rows.length
-                for (var i = 0; i <= len; i++) {
-                    var row = results.rows[i]
-                    var mealTime = moment(row.date).format("MM-DD-YYYY")
-                    if (mealTime === today) {
-                        var meal = {type: row.type, date:row.date, calories: row.calories}
-                        meals.push(meal)
-                    }
+        Storage.get("userId").then(res => {
+            var userId = res
+            var today = moment().format("MM-DD-YYYY")
+            var meals = []
+            db.transaction((tx) => {
+                var sql = 'SELECT * FROM Meal WHERE userId=' + userId
+                try {
+                    tx.executeSql(sql, [],(tx,results) => {
+                        var len = results.rows.length
+                        for (var i = 0; i < len; i++) {
+                            var row = results.rows.item(i)
+                            var mealTime = moment(row.date*1000).format("MM-DD-YYYY")
+                            if (mealTime === today) {
+                                var meal = {id: row.id, type: row.type, date:row.date, calories: row.calories}
+                                meals.push(meal)
+                            }
+                        }
+                        this.setState({
+                            dataSource: this.ds.cloneWithRows(meals),
+                        })
+                    })
+                }
+                catch(e) {
+                    console.log('error:' +e)
                 }
             })
-        }
-        catch(e) {
-            console.log('error:' +e)
-        }
         })
+        
     }
 
     onButtonAddMealClick = () => {
-        
-        Router.navigate(RouteNames.AddMeal, {userId: Router.getParam(this,'userId')})
+        Router.navigate(RouteNames.AddMeal)
     }
 
     _directtoAddFood() {
@@ -60,6 +68,21 @@ export default class MenuScreen extends Component {
         Router.navigate(RouteNames.Profile)
     }
 
+    mealTypeToString(index) {
+        switch(index) {
+            case 1: 
+                return 'Breakfast'
+            case 2: 
+                return 'Brunch'
+            case 3: 
+                return 'Lunch'
+            case 4: 
+                return 'Dinner'
+            case 5: 
+                return 'Midnight-snack'
+        }
+    }
+
     render() {
         return(
             <ImageBackground style={styles.backgroundContainer}>
@@ -69,7 +92,21 @@ export default class MenuScreen extends Component {
                         <Text style={styles.nocolorWord}>Next meal in <Text style={styles.coloredWord}> 20 min </Text> | Daily calories left <Text style={styles.coloredWord}> 1000 </Text> </Text>
                     </View>
                 </View>
-                <MealGroup/>
+                <ListView 
+                    dataSource={this.state.dataSource}
+                    enableEmptySections
+                    renderRow={(rowData) => {
+                        var typeMeal = this.mealTypeToString(rowData.type)
+                        var mealTime = moment(rowData.date).format('hh:mm')
+                        return(
+                            <MealGroup 
+                            mealTime = {mealTime}
+                            mealName = {typeMeal}
+                            id = {rowData.id}
+                            />
+                        )
+                    }}
+                />
                 <View style = {styles.buttonContainer}>
                     <TouchableOpacity onPress = {this.onButtonAddMealClick}>
                         <Text style = {styles.addFoodBtnText}>+ Add Meal</Text>

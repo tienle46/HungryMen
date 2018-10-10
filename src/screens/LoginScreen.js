@@ -6,11 +6,12 @@ import RouteNames from '../routes/RouteNames'
 import { StackNavigator } from 'react-navigation'
 import Toast, {positions, durations} from '../components/Toast'
 import HeaderTitle from '../components/HeaderTitle'
+import Storage from '../cores/Storage'
 const icon = require('../assets/images/logo.png')
 
 //import logo from './images/logo.jpg'
 var SQLite = require('react-native-sqlite-storage')
-db = SQLite.openDatabase({name: 'abc', createFromLocation : "~www/hungryman.sqlite", location: 'Library'}, (open) => {console.log('asdasd')}, (e) => {console.log(e)});
+db = SQLite.openDatabase({name: 'tienle', createFromLocation : "~www/hungryman.sqlite", location: 'Library'}, (open) => {console.log('asdasd')}, (e) => {console.log(e)});
 export default class LoginScreen extends Component {
   static navigationOptions = {
     headerTitle:(
@@ -30,12 +31,13 @@ export default class LoginScreen extends Component {
       password: ''
     }
   }
+
   _directtoRegister() {
     Router.navigate(RouteNames.Register)
   }
 
-  _directtoMenu(userId) {
-    Router.navigate(RouteNames.ContentStack, {dmm: userId})
+  _directtoMenu() {
+    Router.navigate(RouteNames.Menu)
   }
 
   onLoginBtnClicked = () => {
@@ -49,7 +51,8 @@ export default class LoginScreen extends Component {
           } else {
             var row = results.rows.item(0)
             if (this.state.password == row.password) {
-              this._directtoMenu(row.id)
+              Storage.save('userId', row.id)
+              this._directtoMenu()
             } else {
               Toast.show('Wrong password')
             }
@@ -65,11 +68,6 @@ export default class LoginScreen extends Component {
   render() {
     return (
       <ImageBackground style={styles.backgroundContainer}>
-        <View style={styles.logoContainer}>
-            <Text style={styles.logoText}>LOGIN</Text>
-        </View>
-
-
         <View style={styles.inputContainer}>
         <Text style={styles.userText}>Email</Text>
           <TextInput

@@ -5,6 +5,7 @@ import RouteNames from './RouteNames'
 import MenuScreen from '../screens/MenuScreen'
 import AddMealScreen from '../screens/AddMealScreen'
 import ContentStack from './ContentStack'
+import AddFoodScreen from '../screens/AddFoodScreen'
 
 
 const MealStack = createStackNavigator(
@@ -14,6 +15,9 @@ const MealStack = createStackNavigator(
         },
         [RouteNames.AddMeal]: {
             screen: AddMealScreen
+        },
+        [RouteNames.AddFood]: {
+            screen: AddFoodScreen
         }
     },
     {
