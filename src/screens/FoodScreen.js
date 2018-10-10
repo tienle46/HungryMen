@@ -18,7 +18,6 @@ export default class FoodScreen extends Component {
                 <View style = {styles.header}>
                     <HeaderTitle title = 'FOOD' />
                 </View>
-
                 <View style={styles.reminder}>
                     <Text style={styles.nocolorWord}>    Next meal in <Text style={styles.coloredWord}> 20 min </Text> | Daily calories left <Text style={styles.coloredWord}> 1000 </Text> </Text>
                 </View>

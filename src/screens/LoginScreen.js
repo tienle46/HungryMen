@@ -34,8 +34,8 @@ export default class LoginScreen extends Component {
     Router.navigate(RouteNames.Register)
   }
 
-  _directtoMenu() {
-    Router.navigate(RouteNames.ContentStack)
+  _directtoMenu(userId) {
+    Router.navigate(RouteNames.ContentStack, {dmm: userId})
   }
 
   onLoginBtnClicked = () => {
@@ -49,7 +49,7 @@ export default class LoginScreen extends Component {
           } else {
             var row = results.rows.item(0)
             if (this.state.password == row.password) {
-              this._directtoMenu()
+              this._directtoMenu(row.id)
             } else {
               Toast.show('Wrong password')
             }

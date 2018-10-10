@@ -15,7 +15,7 @@ const ContentStack = createBottomTabNavigator(
             screen: MenuScreen,
         },
         Food: {
-            screen: FoodScreen,
+            screen: FoodStack,
         },
         Profile: {
             screen: ProfileScreen,
@@ -23,5 +23,8 @@ const ContentStack = createBottomTabNavigator(
     },
     
 );
+ContentStack.navigationOptions = {
+    header:null
+}
 
 export default ContentStack;

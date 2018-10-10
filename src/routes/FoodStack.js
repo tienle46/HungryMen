@@ -13,7 +13,7 @@ const FoodStack = StackNavigator(
         [RouteNames.Food]: {
             screen: FoodScreen,
         },
-        [RouteNames.Add]: {
+        [RouteNames.AddFood]: {
             screen: AddFoodScreen
         }
     },
