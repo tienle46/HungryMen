@@ -38,6 +38,10 @@ export default class AddMealScreen extends Component {
     onBtnSubmitClicked = () => {
         if (this.state.date === null) {
             Toast.show('Please select time')
+        // } else {
+        //     if (moment().diff(this.state.date, 'minutes') < 0) {
+        //         Toast.show('Please select valid time')
+        //     }
         }
         var dateToUnix = moment(this.state.date,"YYYY-MM-DD, hh:mm").unix()
         Storage.get('userId').then(res => {
@@ -72,7 +76,6 @@ export default class AddMealScreen extends Component {
                         placeholder="select time"
                         format="YYYY-MM-DD, hh:mm"
                         minDate="2018-10-01"
-                        maxDate= {moment().format('YYYY-MM-DD')}
                         confirmBtnText="Confirm"
                         cancelBtnText="Cancel"
                         showIcon = {false}

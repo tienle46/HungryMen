@@ -35,6 +35,7 @@ export default class MenuScreen extends Component {
                         var len = results.rows.length
                         for (var i = 0; i < len; i++) {
                             var row = results.rows.item(i)
+                            console.log(row)
                             var mealTime = moment(row.date*1000).format("MM-DD-YYYY")
                             if (mealTime === today) {
                                 var meal = {id: row.id, type: row.type, date:row.date, calories: row.calories}
@@ -97,7 +98,7 @@ export default class MenuScreen extends Component {
                     enableEmptySections
                     renderRow={(rowData) => {
                         var typeMeal = this.mealTypeToString(rowData.type)
-                        var mealTime = moment(rowData.date).format('hh:mm')
+                        var mealTime = moment(rowData.date * 1000).format("hh:mm")
                         return(
                             <MealGroup 
                             mealTime = {mealTime}

@@ -19,6 +19,7 @@ export default class MealGroup extends Component {
         this.ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
         this.state = {
         dataSource: this.ds.cloneWithRows([]),
+        mealCalories: 0,
         }
     }
 
@@ -33,20 +34,30 @@ export default class MealGroup extends Component {
             try {
                 tx.executeSql(sql, [],(tx,results) => {
                     var len = results.rows.length
+                    var mealCalories = 0
                     for (var i = 0; i < len; i++) {
                         var row = results.rows.item(i)
-                            var dish = {foodName: row.foodName, calories: row.calories}
-                            dishes.push(dish)
+                        mealCalories = mealCalories + row.calories
+                        var dish = {foodName: row.foodName, calories: row.calories}
+                        dishes.push(dish)
                     }
                     this.setState({
                         dataSource: this.ds.cloneWithRows(dishes),
+                        mealCalories: mealCalories
                     })
+                    var updateSql = "UPDATE Meal SET calories =" + this.state.mealCalories + " WHERE id =" + this.props.id
+                    try {
+                        tx.executeSql(updateSql)
+                    } catch(e) {
+                        console.log('e:' + e)
+                    }
                 })
             }
             catch(e) {
                 console.log('error:' +e)
             }
         })
+
     }
 
     render() {
@@ -67,7 +78,7 @@ export default class MealGroup extends Component {
                 <MealHeader
                     mealTime = {this.props.mealTime}
                     mealName = {this.props.mealName}
-                    mealCalories = {300}
+                    mealCalories = {this.state.mealCalories}
                 />
                 <ListView 
                     dataSource={this.state.dataSource}
