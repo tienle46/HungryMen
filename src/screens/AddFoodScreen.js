@@ -31,11 +31,10 @@ export default class AddFoodScreen extends Component {
         },
     }
     _directToMenu() {
-        Router.navigate(RouteNames.Menu)
+        Router.back(this.props.navigation)
     }
 
     componentDidMount() {
-        console.warn(Router.getParam(this, 'mealId'))
         var sql = "SELECT * FROM food"
         db.transaction((tx) => {
             try {

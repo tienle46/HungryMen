@@ -37,7 +37,7 @@ export default class LoginScreen extends Component {
   }
 
   _directtoMenu() {
-    Router.navigate(RouteNames.Menu)
+    Router.navigate(RouteNames.ContentStack)
   }
 
   onLoginBtnClicked = () => {

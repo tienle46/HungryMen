@@ -32,7 +32,7 @@ export default class AddMealScreen extends Component {
         },
     }
     _directToMenu() {
-        Router.navigate(RouteNames.Menu)
+        Router.back(this.props.navigation)
     }
 
     onBtnSubmitClicked = () => {
@@ -99,7 +99,7 @@ export default class AddMealScreen extends Component {
                             activityTintColor={'rgb(80,198,209)'}
                             optionTextStyle={{color: 'black', fontSize: 24}}
                             titleStyle={{fontSize: 24, color: 'white'}}
-                            handler={(selection,row) => this.setState({mealTypeSelection: row})}
+                            handler={(selection,row) => this.setState({mealTypeSelection: row +1})}
                             data={mealTypeSelection}
                         />
                     </View>

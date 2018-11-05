@@ -27,37 +27,47 @@ export default class MealGroup extends Component {
         Router.navigate(RouteNames.AddFood, {mealId: this.props.id})
     }
 
-    componentDidMount() {
+    _fetchData() {
         var dishes = []
-        db.transaction((tx) => {
-            var sql = 'SELECT * FROM Dish WHERE mealId =' + this.props.id
-            try {
-                tx.executeSql(sql, [],(tx,results) => {
-                    var len = results.rows.length
-                    var mealCalories = 0
-                    for (var i = 0; i < len; i++) {
-                        var row = results.rows.item(i)
-                        mealCalories = mealCalories + row.calories
-                        var dish = {foodName: row.foodName, calories: row.calories}
-                        dishes.push(dish)
-                    }
-                    this.setState({
-                        dataSource: this.ds.cloneWithRows(dishes),
-                        mealCalories: mealCalories
+            db.transaction((tx) => {
+                var sql = 'SELECT * FROM Dish WHERE mealId =' + this.props.id
+                try {
+                    tx.executeSql(sql, [],(tx,results) => {
+                        var len = results.rows.length
+                        var mealCalories = 0
+                        for (var i = 0; i < len; i++) {
+                            var row = results.rows.item(i)
+                            mealCalories = mealCalories + row.calories
+                            var dish = {foodName: row.foodName, calories: row.calories}
+                            dishes.push(dish)
+                        }
+                        this.setState({
+                            dataSource: this.ds.cloneWithRows(dishes),
+                            mealCalories: mealCalories
+                        })
+                        var updateSql = "UPDATE Meal SET calories =" + this.state.mealCalories + " WHERE id =" + this.props.id
+                        try {
+                            tx.executeSql(updateSql)
+                        } catch(e) {
+                            console.log('e:' + e)
+                        }
                     })
-                    var updateSql = "UPDATE Meal SET calories =" + this.state.mealCalories + " WHERE id =" + this.props.id
-                    try {
-                        tx.executeSql(updateSql)
-                    } catch(e) {
-                        console.log('e:' + e)
-                    }
-                })
-            }
-            catch(e) {
-                console.log('error:' +e)
-            }
-        })
+                }
+                catch(e) {
+                    console.log('error:' +e)
+                }
+            })
+    }
 
+    componentDidMount() {
+        this._fetchData()
+        this._subscribe = this.props.navigation.addListener('didFocus', () => {
+            this._fetchData()
+        });
+    }
+
+    componentWillUnmount() {
+        this._subscribe.remove()
     }
 
     render() {

@@ -23,7 +23,7 @@ export default class MenuScreen extends Component {
         }
     }
 
-    componentDidMount() {
+    _fetchData() {
         Storage.get("userId").then(res => {
             var userId = res
             var today = moment().format("MM-DD-YYYY")
@@ -35,7 +35,6 @@ export default class MenuScreen extends Component {
                         var len = results.rows.length
                         for (var i = 0; i < len; i++) {
                             var row = results.rows.item(i)
-                            console.log(row)
                             var mealTime = moment(row.date*1000).format("MM-DD-YYYY")
                             if (mealTime === today) {
                                 var meal = {id: row.id, type: row.type, date:row.date, calories: row.calories}
@@ -52,7 +51,17 @@ export default class MenuScreen extends Component {
                 }
             })
         })
-        
+    }
+
+    componentDidMount() {
+        this._fetchData()
+        this._subscribe = this.props.navigation.addListener('didFocus', () => {
+            this._fetchData()
+        });
+    }
+
+    componentWillUnmount() {
+        this._subscribe.remove()
     }
 
     onButtonAddMealClick = () => {
@@ -104,6 +113,7 @@ export default class MenuScreen extends Component {
                             mealTime = {mealTime}
                             mealName = {typeMeal}
                             id = {rowData.id}
+                            navigation = {this.props.navigation}
                             />
                         )
                     }}

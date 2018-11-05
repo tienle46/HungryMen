@@ -27,13 +27,13 @@ const styles = StyleSheet.create({
 const AppRoute = SwitchNavigator(
     {
         [RouteNames.Auth]: AuthStack,
-        [RouteNames.AppStack]: AppStack,
-        [RouteNames.FoodStack]: FoodStack,
-        // [RouteNames.ContentStack]: ContentStack,
-        [RouteNames.AddMeal]: AddMealScreen,
-        [RouteNames.FoodScreen]: FoodScreen,
-        [RouteNames.LoginScreen]: LoginScreen,
-        [RouteNames.MenuScreen]: MenuScreen,
+        // [RouteNames.AppStack]: AppStack,
+        // [RouteNames.FoodStack]: FoodStack,
+        [RouteNames.ContentStack]: ContentStack,
+        // [RouteNames.AddMeal]: AddMealScreen,
+        // [RouteNames.FoodScreen]: FoodScreen,
+        // [RouteNames.LoginScreen]: LoginScreen,
+        // [RouteNames.MenuScreen]: MenuScreen,
         [RouteNames.ProfileScreen]: ProfileScreen,
         [RouteNames.MealStack]: MealStack,
         // [RouteNames.AddFood]: AddFoodScreen

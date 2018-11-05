@@ -7,12 +7,13 @@ import FoodScreen from '../screens/FoodScreen'
 import ProfileScreen from '../screens/ProfileScreen'
 import AddFoodScreen from '../screens/AddFoodScreen'
 import FoodStack from './FoodStack'
+import MealStack from './MealStack'
 
 
 const ContentStack = createBottomTabNavigator(
     {
         Meal: {
-            screen: MenuScreen,
+            screen: MealStack,
         },
         Profile: {
             screen: ProfileScreen,
