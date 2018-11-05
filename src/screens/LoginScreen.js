@@ -81,6 +81,7 @@ export default class LoginScreen extends Component {
           <TextInput
               style={styles.input}
               onChangeText = {password => this.setState({password})}
+              secureTextEntry = {true}
           />
           <TouchableOpacity style ={styles.btnLogin} onPress = {this.onLoginBtnClicked}>
             <Text style={styles.text}>Login</Text>

@@ -41,11 +41,13 @@ export default class MealGroup extends Component {
                             var dish = {foodName: row.foodName, calories: row.calories}
                             dishes.push(dish)
                         }
+                        var num = Number(mealCalories)
+                        var newMealCalories = Number(num.toFixed(2))
                         this.setState({
                             dataSource: this.ds.cloneWithRows(dishes),
-                            mealCalories: mealCalories
+                            mealCalories: newMealCalories
                         })
-                        var updateSql = "UPDATE Meal SET calories =" + this.state.mealCalories + " WHERE id =" + this.props.id
+                        var updateSql = "UPDATE Meal SET calories =" + this.state.newMealCalories + " WHERE id =" + this.props.id
                         try {
                             tx.executeSql(updateSql)
                         } catch(e) {
