@@ -29,7 +29,7 @@ export default class MenuScreen extends Component {
             var today = moment().format("MM-DD-YYYY")
             var meals = []
             db.transaction((tx) => {
-                var sql = 'SELECT * FROM Meal WHERE userId=' + userId
+                var sql = 'SELECT * FROM  Meal WHERE userId=' + userId
                 try {
                     tx.executeSql(sql, [],(tx,results) => {
                         var len = results.rows.length
@@ -137,17 +137,20 @@ const styles = StyleSheet.create({
         fontSize: 15,
         borderColor: 'white',
         borderWidth: 5,
-        alignItems: 'center'
+        alignItems: 'center',
+        letterSpacing: 1
+
     },
     nocolorWord: {
         color: 'white',
         fontSize: 15,
         alignItems: 'flex-start',
+        letterSpacing: 1
     },
     nocolorWordTitle: {
         color: 'white',
         fontSize: 20,
-        justifyContent: 'flex-start'
+        justifyContent: 'flex-start',
     },
     logoText: {
         color: 'white',
@@ -178,6 +181,7 @@ const styles = StyleSheet.create({
             backgroundColor: 'rgb(32,32,32)',
             flexDirection: 'column',
             paddingTop: 20,
+            height: 90
     },
     addFoodBtnText: {
         color: 'rgb(80,198,209)',
