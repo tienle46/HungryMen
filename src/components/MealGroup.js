@@ -12,7 +12,7 @@ import Router from '../routes/Router'
 import RouteNames from '../routes/RouteNames'
 
 var SQLite = require('react-native-sqlite-storage')
-db = SQLite.openDatabase({name: 'tienle', createFromLocation : "~www/hungryman.sqlite", location: 'Library'}, (open) => {console.log('asdasd')}, (e) => {console.log(e)});
+db = SQLite.openDatabase({name: 'tramy', createFromLocation : "~www/hungry.sqlite", location: 'Library'}, (open) => {console.log('asdasd')}, (e) => {console.log(e)});
 export default class MealGroup extends Component {
     constructor() {
         super()

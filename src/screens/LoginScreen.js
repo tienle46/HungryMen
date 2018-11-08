@@ -11,18 +11,11 @@ const icon = require('../assets/images/logo.png')
 
 //import logo from './images/logo.jpg'
 var SQLite = require('react-native-sqlite-storage')
-db = SQLite.openDatabase({name: 'tienle', createFromLocation : "~www/hungryman.sqlite", location: 'Library'}, (open) => {console.log('asdasd')}, (e) => {console.log(e)});
+db = SQLite.openDatabase({name: 'tramy', createFromLocation : "~www/hungryman.sqlite", location: 'Library'}, (open) => {console.log('asdasd')}, (e) => {console.log(e)});
 export default class LoginScreen extends Component {
   static navigationOptions = {
-    headerTitle:(
-      <HeaderTitle
-        title = 'LOGIN'
-       />
-    ),
-    headerStyle: {
-      backgroundColor: 'rgb(32,32,32)',
-    },
-  }
+        header: null
+    }
 
   constructor() {
     super()
@@ -68,6 +61,9 @@ export default class LoginScreen extends Component {
   render() {
     return (
       <ImageBackground style={styles.backgroundContainer}>
+        <View style = {styles.header}>
+          <HeaderTitle title = 'Login' />
+        </View>
         <View style={styles.inputContainer}>
         <Text style={styles.userText}>Email</Text>
           <TextInput
@@ -114,6 +110,13 @@ const styles = StyleSheet.create({
   logoContainer: {
     alignItems: 'stretch',
     backgroundColor: '#262626',
+  },
+  header: {
+    alignItems: 'center',
+    backgroundColor: 'rgb(32,32,32)',
+    flexDirection: 'column',
+    paddingTop: 20,
+    height: 90
   },
   logo: {
     width: 120,
