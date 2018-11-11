@@ -11,7 +11,7 @@ import Toast, {positions, durations} from '../components/Toast'
 import Storage from '../cores/Storage'
 
 var SQLite = require('react-native-sqlite-storage')
-db = SQLite.openDatabase({name: 'tramy', createFromLocation : "~www/hungryman.sqlite", location: 'Library'}, (open) => {console.log('asdasd')}, (e) => {console.log(e)});
+db = SQLite.openDatabase({name: 'database', createFromLocation : "~www/hungryman.sqlite", location: 'Library'}, (open) => {console.log('asdasd')}, (e) => {console.log(e)});
 export default class AddMealScreen extends Component {
     constructor() {
         super()
