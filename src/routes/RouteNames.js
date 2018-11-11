@@ -9,5 +9,6 @@ export default {
     AddMeal: 'AddMealScreen',
     FoodStack: 'FoodStack',
     ContentScreen: 'ContentScreen',
-    ContentStack: 'ContentStack'
+    ContentStack: 'ContentStack',
+    Challenge: 'ChallengeStack' 
 }

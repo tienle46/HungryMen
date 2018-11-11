@@ -8,6 +8,7 @@ import ProfileScreen from '../screens/ProfileScreen'
 import AddFoodScreen from '../screens/AddFoodScreen'
 import FoodStack from './FoodStack'
 import MealStack from './MealStack'
+import ChallengeStack from './ChallengeStack'
 
 
 const ContentStack = createBottomTabNavigator(
@@ -18,6 +19,9 @@ const ContentStack = createBottomTabNavigator(
         Profile: {
             screen: ProfileScreen,
         },
+        Challenge: {
+            screen: ChallengeStack,
+        }
     },
     
 );
