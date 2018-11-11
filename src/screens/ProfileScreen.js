@@ -4,6 +4,8 @@ import Router from '../routes/Router'
 import RouteNames from '../routes/RouteNames'
 import HeaderTitle from '../components/HeaderTitle'
 import Storage from '../cores/Storage'
+import EditComponent from '../components/EditComponent'
+import Toast, {positions, durations} from '../components/Toast'
 const profileImageBackground = require('../assets/images/background2.jpg')
 const userIcon = require('../assets/images/user_icon.png')
 const editButton = require('../assets/images/edit.png')
@@ -17,6 +19,7 @@ export default class ProfileScreen extends Component {
             weight: null,
             height: null,
             goal: null,
+            visibleEditComp: false,
         }
     }
     
@@ -26,7 +29,66 @@ export default class ProfileScreen extends Component {
     _directtoFood(){
         Router.navigate(RouteNames.Food)      
     }
+    onEditButtonClick = () => {
+        this.setState({
+            visibleEditComp : true
+        })
+    }
+    onButtonCloseClick = () => {
+        this.setState({
+            visibleEditComp : false,
+            editedName: null,
+            editedAge: null,
+            editedHeight: null,
+            editedWeight: null,
+            editedGoal: null
+        })
+    }
 
+    createUpdateQuery() {
+        var editedValues = [this.state.editedName,this.state.editedAge,this.state.editedHeight,this.state.editedWeight,this.state.editedGoal]
+        var sqlQuery = "UPDATE USER SET "
+        var editedQuery = ["name ='" + this.state.editedName + "'", "age =" + this.state.editedAge, "height =" + this.state.editedHeight, "weight =" + this.state.editedWeight, "goal =" + this.state.editedGoal]
+        var count = 0
+        for (var i = 0; i < editedValues.length; i ++) {
+            if(editedValues[i]) {
+                count += 1
+                if(count === 1) {
+                    sqlQuery += editedQuery[i]
+                } else {
+                    sqlQuery = sqlQuery + ', '+ editedQuery[i]
+                }
+            }
+        }
+        if (count === 0) {
+            return null
+        } else {
+            return sqlQuery
+        }
+        count = 0
+    }
+    onSubmitFormButtonClick = () => {
+        if(!this.createUpdateQuery()) {
+            Toast.show('Please fill in at least 1 form')
+            return
+        }
+        Storage.get("userId").then(res => {
+            var userId = res
+            var sql = this.createUpdateQuery() + " WHERE id =" + userId
+            db.transaction((tx) => {
+                try {
+                    tx.executeSql(sql)
+                }
+                catch(e) {
+                    console.log('error:' +e)
+                }
+            })
+        })
+        this.setState({
+            visibleEditComp: false
+        })
+        Toast.show('Successfully updated')
+    }
     _fetchData() {
         Storage.get("userId").then(res => {
             var userId = res
@@ -35,8 +97,9 @@ export default class ProfileScreen extends Component {
                 try {
                     tx.executeSql(sql, [],(tx,results) => {
                         const result = results.rows.item(0)
+                        console.warn(result.name)
                         this.setState({
-                            name: result.name === '' ? result.name : result.username,
+                            name: result.name ? result.name : result.username,
                             age: result.age ? result.age : 'Please fill your age',
                             weight: result.weight ? result.weight + ' kg' : 'Please fill your weight',
                             height: result.height ? result.height + ' cm' : 'Please fill your height',
@@ -64,13 +127,22 @@ export default class ProfileScreen extends Component {
                         <Text style={styles.nocolorWord1}>Next meal in <Text style={styles.coloredWord1}> 20 min </Text> | Daily calories left <Text style={styles.coloredWord1}> 1000 </Text> </Text>
                     </View>
                 </View>
+                {this.state.visibleEditComp ? <EditComponent 
+                onCloseButtonPress = {this.onButtonCloseClick}
+                onSubmitButtonPress = {this.onSubmitFormButtonClick}
+                nameChange = {(name) => {this.setState({editedName: name})}}
+                ageChange = {(age) => {this.setState({editedAge: age})}}
+                heightChange = {(height) => {this.setState({editedHeight: height})}}
+                weightChange = {(weight) => {this.setState({editedWeight: weight})}}
+                goalChange = {(goal) => {this.setState({editedGoal: goal})}}
+                /> : null} 
                 <View>
                     <ImageBackground source = {profileImageBackground} style = {styles.profileImageBackground}>
                         <View style = {{position: 'absolute', top:0,right:0,bottom:0,left:0, backgroundColor:'rgba(255,255,255,.1)'}}/>
                         <TouchableOpacity style = {styles.shadow}>
                             <Image source = {userIcon} style = {styles.userIcon}/>
                         </TouchableOpacity>
-                        <TouchableOpacity style = {styles.editButton}>
+                        <TouchableOpacity style = {styles.editButton} onPress = {this.onEditButtonClick}>
                             <Image source = {editButton} style = {{width:40, height:40}}/>
                         </TouchableOpacity>
                     </ImageBackground>
