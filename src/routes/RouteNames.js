@@ -10,5 +10,6 @@ export default {
     FoodStack: 'FoodStack',
     ContentScreen: 'ContentScreen',
     ContentStack: 'ContentStack',
-    Challenge: 'ChallengeStack' 
+    Challenge: 'ChallengeStack',
+    HowToDo: 'HowToDoScreen' 
 }

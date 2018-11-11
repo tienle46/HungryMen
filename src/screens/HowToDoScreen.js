@@ -1,5 +1,5 @@
 import React, {Component} from 'react'
-import {StyleSheet, Text, View, ImageBackground, Image, TextInput, TouchableOpacity, Picker} from 'react-native'
+import {StyleSheet, Text, View, ImageBackground, Image, TextInput, TouchableOpacity, Picker, Dimensions} from 'react-native'
 import Router from '../routes/Router'
 import RouteNames from '../routes/RouteNames'
 import HeaderTitle from '../components/HeaderTitle'
@@ -16,126 +16,141 @@ export default class HowToDoScreen extends Component {
         return(
             <ImageBackground style={styles.backgroundContainer}>
                 <View style = {styles.header}>
-                    <HeaderTitle title = 'FOOD' />
+                    <HeaderTitle title = 'How to do challenges' />
+                    <View style={styles.reminder}>
+                        <Text style={styles.nocolorWord}>Next meal in <Text style={styles.coloredWord}> 20 min </Text> | Daily calories left <Text style={styles.coloredWord}> 1000 </Text> </Text>
+                    </View>
                 </View>
-                <View style={styles.reminder}>
-                    <Text style={styles.nocolorWord}>    Next meal in <Text style={styles.coloredWord}> 20 min </Text> | Daily calories left <Text style={styles.coloredWord}> 1000 </Text> </Text>
-                </View>
-                <TextInput style={styles.searchInput} />
-                <View style={styles.suggested}>
-                    <Text style={styles.nocolorWordTitle}> Suggested foods</Text>
-                </View>
-                <View style={styles.suggestedContent}> 
-                    <Text></Text>
-                    <Text style={styles.coloredWord}> + Broccoli </Text>
-                    <Text style={styles.coloredWord}> + Nuts </Text>
-                    <Text style={styles.coloredWord}> + Greek yogurt </Text>
-                    <Text></Text>
-                </View>
-
-
-                <View style={styles.latest}>
-                    <Text style={styles.nocolorWordTitle}> Latest foods</Text>
-                </View>
-                <View style={styles.latestContent}> 
-                    <Text></Text>   
-                    <Text style={styles.coloredWord}> + Eggs</Text>
-                    <Text style={styles.coloredWord}> + Oatmeal</Text>
-                    <Text></Text>
-                </View>
-
-                <View style={styles.favorite}>
-                    <Text style={styles.nocolorWordTitle}> Favorite foods</Text>
-                </View>
-                <View style={styles.favoriteContent}> 
-                    <Text></Text>   
-                    <Text style={styles.coloredWord}> + Eggs</Text>
-                </View>
-
-
-                <TouchableOpacity style ={styles.btnLogin} onPress = {() => {this._directtoMenu()}}>
-                    <Text style={styles.text}>Menu Screen</Text>
-                </TouchableOpacity>
-
-                <TouchableOpacity style ={styles.btnLogin} onPress = {() => {this._directtoProfile()}}>
-                    <Text style={styles.text}>Profile Page</Text>
-                </TouchableOpacity>
-                
+                <View style = {styles.instruction}>
+                    <View style = {styles.above}>
+                        <View style = {styles.one}> 
+                            <Text style={styles.nocolorWord}>1. Follow the steps of thinking.</Text>
+                        </View>
+                        <View style = {styles.two}> 
+                            <Text style={styles.nocolorWord}>2. You can interrept the steps in what ever way you want.</Text>
+                        </View>
+                        <View style={styles.three}>
+                            <Text style={styles.nocolorWord}>3. It is a way of gamifying selection of food and manner of eating.</Text>
+                        </View>
+                    </View>    
+                    <View style={styles.example}>
+                        <View style={styles.four}>
+                            <Text style={styles.nocolorWord}>EXAMPLE</Text>
+                        </View>
+                        <View style={styles.five}>    
+                            <Text style={styles.nocolorWord}>1. Find an object close to you within 2 meters. -> Piece of paper</Text>
+                        </View>
+                        <View style={styles.six}>    
+                            <Text style={styles.nocolorWord}>2. What is the first color that comes to your mind. -> Green</Text>
+                        </View>
+                        <View style={styles.seven}>    
+                            <Text style={styles.nocolorWord}>3. What food could it be? -> Salad.</Text>
+                        </View>
+                        <View style={styles.eight}>   
+                            <Text style={styles.nocolorWord}>4. Please eat it today.</Text>
+                        </View>
+                    </View>    
+                </View>    
             </ImageBackground>
-
     );
   }
 }
 const styles = StyleSheet.create({
     backgroundContainer: {
-        flex: 1,
-        backgroundColor: '#262626',
-        borderWidth: 1
-    },  
-    logoContainer: {
-        backgroundColor: 'rgba(32,32,32,1)',
-        flex:0.1,
+        backgroundColor: 'rgb(38,38,38)',
+        flex: 1
     },  
     coloredWord: {
         color: 'rgba(80,198,209,0.8)',
-        fontSize: 15
+        fontSize: 15,
+        borderColor: 'white',
+        borderWidth: 5,
+        alignItems: 'center',
+        letterSpacing: 1
+
     },
     nocolorWord: {
         color: 'white',
-        fontSize: 15
+        fontSize: 15,
+        letterSpacing: 1
     },
     nocolorWordTitle: {
         color: 'white',
-        fontSize: 20
+        fontSize: 20,
+        justifyContent: 'flex-start',
     },
     logoText: {
         color: 'white',
         fontSize: 30,
         fontWeight: 'bold',
-        alignSelf: 'center'
+        justifyContent: 'center',
     },
-    reminder: {
-        alignSelf: 'stretch',
-        backgroundColor: 'rgba(32,32,32,1)',
-
+    number: {
+        alignItems: 'flex-end'
     },
-    suggestedContent: {
-        flexDirection: 'column',
-        flex: 0.2,
-        justifyContent: 'space-between', 
-        height: 100
-    },
-    latestContent: {
-        flexDirection: 'column',
-        flex: 0.2,
+    meal: {
+        flex:1,
+        flexDirection: 'row',
         justifyContent: 'space-between',
+        alignItems: 'stretch'
     },
-    suggested: {
-        backgroundColor: 'rgba(32,32,32,1)',
-        height: 30
+    nocolorWordTitle1: {
+        justifyContent: 'flex-start'
     },
-    latest: {
-        backgroundColor: 'rgba(32,32,32,1)',
-        height: 30
-    },
-    favorite: {
-        backgroundColor: 'rgba(32,32,32,1)',
-        height: 30
-    },
-    searchInput: {
-        width: 300,
-        height: 35,
-        fontSize: 16,
-        paddingLeft: 25,
-        backgroundColor: '#262626',
-        color: 'white',
-        marginHorizontal: 25
+    number1: {
+        justifyContent: 'flex-end'
     },
     header: {
-        alignItems: 'center',
-        backgroundColor: 'rgb(32,32,32)',
+            alignItems: 'center',
+            backgroundColor: 'rgb(32,32,32)',
+            flexDirection: 'column',
+            paddingTop: 20,
+            height: 90
+    },
+    addFoodBtnText: {
+        color: 'rgb(80,198,209)',
+        fontSize: 18
+    },
+    buttonContainer: {
+        width: Dimensions.get('window').width * 0.95,
+        marginTop: 10
+    },
+    instruction: {
+        flex: 1,
         flexDirection: 'column',
-        paddingTop: 20
+    },
+    two: {
+        marginTop: 10
+    },
+    three: {
+        marginTop: 10
+    },
+    four: {
+        marginTop: 20
+    },
+    five: {
+        marginTop: 10
+    },
+    six: {
+        marginTop: 10
+    },
+    seven: {
+        marginTop: 10
+    },
+    eight: {
+        marginTop: 10
+    },
+    example: {
+        flex: 1,
+        flexDirection: 'column',
+        marginBottom: 150
+    },
+    above: {
+        flex: 1,
+        flexDirection: 'column',
+        marginTop: 50,
     }
 
 });
+
+

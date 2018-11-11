@@ -77,6 +77,9 @@ export default class ChallengeScreen extends Component {
     _directtoProfile(){
         Router.navigate(RouteNames.Profile)
     }
+     _directtoInstruction() {
+    Router.navigate(RouteNames.HowToDo)
+  }
 
     render() {
         return(
@@ -87,28 +90,9 @@ export default class ChallengeScreen extends Component {
                         <Text style={styles.nocolorWord}>Next meal in <Text style={styles.coloredWord}> 20 min </Text> | Daily calories left <Text style={styles.coloredWord}> 1000 </Text> </Text>
                         <Text style={styles.nocolorWord}>Daily Challenges</Text>
                     </View>
-                </View>
-                <View style = {styles.info}>
-                    <View style = {styles.infoDetail}>
-                        <Text style = {styles.nocolorWord}>Name</Text>
-                
-                    </View>
-                    <View style = {styles.infoDetail}>
-                        <Text style = {styles.nocolorWord}>Age</Text>
-             
-                    </View>
-                    <View style = {styles.infoDetail}>
-                        <Text style = {styles.nocolorWord}>Height</Text>
-       
-                    </View>
-                    <View style = {styles.infoDetail}>
-                        <Text style = {styles.nocolorWord}>Weight</Text>
-        
-                    </View>
-                    <View style = {styles.infoDetail}>
-                        <Text style = {styles.nocolorWord}>Goal</Text>
-     
-                    </View>
+                    <TouchableOpacity style={styles.instruction} onPress = {() => {this._directtoInstruction()}}>
+                    <Text>?</Text>
+                    </TouchableOpacity>
                 </View>
                 
             </ImageBackground>
