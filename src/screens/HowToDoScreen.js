@@ -11,16 +11,19 @@ export default class HowToDoScreen extends Component {
     _directtoProfile(){
         Router.navigate(RouteNames.Profile)      
     }
-
+    static navigationOptions = {
+        headerTitle:(
+        <HeaderTitle 
+            title = 'How to do challenges'
+        />
+        ),
+        headerStyle: {
+        backgroundColor: 'rgb(32,32,32)',
+        },
+    }
     render() {
         return(
             <ImageBackground style={styles.backgroundContainer}>
-                <View style = {styles.header}>
-                    <HeaderTitle title = 'How to do challenges' />
-                    <View style={styles.reminder}>
-                        <Text style={styles.nocolorWord}>Next meal in <Text style={styles.coloredWord}> 20 min </Text> | Daily calories left <Text style={styles.coloredWord}> 1000 </Text> </Text>
-                    </View>
-                </View>
                 <View style = {styles.instruction}>
                     <View style = {styles.above}>
                         <View style = {styles.one}> 
