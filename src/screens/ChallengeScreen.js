@@ -10,6 +10,8 @@ import Storage from '../cores/Storage'
 
 var SQLite = require('react-native-sqlite-storage')
 db = SQLite.openDatabase({name: 'tramy', createFromLocation : "~www/hungryman.sqlite", location: 'Library'}, (open) => {console.log('asdasd')}, (e) => {console.log(e)});
+
+
 export default class ChallengeScreen extends Component {
     static navigationOptions = {
         header: null
@@ -19,64 +21,65 @@ export default class ChallengeScreen extends Component {
         super()
         this.ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
         this.state = {
-        dataSource: this.ds.cloneWithRows([]),
+        dataSource: this.ds.cloneWithRows([
+            {
+                type: 'daily',
+                detail: 'Stop where you are, look to your right. What is the first color that you see? What vegetable/fruit it reminds you? Eat That!',
+                xp: '100'
+            },
+            {
+                type: 'daily',
+                detail: 'Open your browser and close your eyes. Press 1 letter. Based on that letter find an item with vitamin D. If failed: try again.',
+                xp: '100'
+            },
+            {
+                type: 'daily',
+                detail: 'Think of the candy that you are craving. Find something of the same color. Form shape of candy with that food. Eat it with your hands',
+                xp: '100'
+            },
+            {
+                type: 'daily',
+                detail: 'Walk through place that doesn’t have any vehicles. Take a breath. How does it smell? What food comes to your mind. Make food from it. ',
+                xp: '100'
+            },
+            {
+                type: 'daily',
+                detail: 'Open your fridge and grab first thing that you see. Think some food that you can make from it. Make that food.',
+                xp: '100'
+            },
+            {
+                type: 'weekly',
+                detail: 'Go to grocery store. Go to vegetable section. Think last vegetable/fruit that you bought. Take next vegetable/fruit beside it. ',
+                xp: '200'
+            },
+            {
+                type: 'weekly',
+                detail: 'Walk to somewhere. Put your music away. Listen to sounds/voices. If you hear something that reminds you about food remember it. Do meal concerning to this. ',
+                xp: '200'
+            },
+            {
+                type: 'weekly',
+                detail: 'You are thirsty, look around what kind of drink comes to your mind? Drink it!',
+                xp: '200'
+            },
+            {
+                type: 'weekly',
+                detail: 'Listen to some music, what kind of fruit/vegetable does the song remind you of? Eat it!',
+                xp: '200'
+            },
+            {
+                type: 'weekly',
+                detail: 'Open your phone, check photos, pick one, what kind of fruit/vegetable does it remind you? Eat it!',
+                xp: '200'
+            }
+        ]),
         }
     }
 
-    _fetchData() {
-        Storage.get("userId").then(res => {
-            var userId = res
-            var today = moment().format("MM-DD-YYYY")
-            var meals = []
-            db.transaction((tx) => {
-                var sql = 'SELECT * FROM  Meal WHERE userId=' + userId
-                try {
-                    tx.executeSql(sql, [],(tx,results) => {
-                        var len = results.rows.length
-                        for (var i = 0; i < len; i++) {
-                            var row = results.rows.item(i)
-                            var mealTime = moment(row.date*1000).format("MM-DD-YYYY")
-                            if (mealTime === today) {
-                                var meal = {id: row.id, type: row.type, date:row.date, calories: row.calories}
-                                meals.push(meal)
-                            }
-                        }
-                        this.setState({
-                            dataSource: this.ds.cloneWithRows(meals),
-                        })
-                    })
-                }
-                catch(e) {
-                    console.log('error:' +e)
-                }
-            })
-        })
+    _renderRow(rowData){
+        return <Text style={styles.nocolorWord}>{rowData.detail}</Text>
     }
 
-    componentDidMount() {
-        this._fetchData()
-        this._subscribe = this.props.navigation.addListener('didFocus', () => {
-            this._fetchData()
-        });
-    }
-
-    componentWillUnmount() {
-        this._subscribe.remove()
-    }
-
-    onButtonAddMealClick = () => {
-        Router.navigate(RouteNames.AddMeal)
-    }
-
-    _directtoAddFood() {
-        Router.navigate(RouteNames.Add)
-    }
-    _directtoFood() {
-        Router.navigate(RouteNames.Food)
-    }
-    _directtoProfile(){
-        Router.navigate(RouteNames.Profile)
-    }
      _directtoInstruction() {
     Router.navigate(RouteNames.HowToDo)
   }
@@ -91,10 +94,17 @@ export default class ChallengeScreen extends Component {
                         <Text style={styles.nocolorWord}>Daily Challenges</Text>
                     </View>
                     <TouchableOpacity style={styles.instruction} onPress = {() => {this._directtoInstruction()}}>
-                    <Text>?</Text>
+                        <Text>?</Text>
                     </TouchableOpacity>
                 </View>
-                
+                <View style = {styles.info}>
+                    <View style={styles.infoDetail}>
+                        <ListView
+                            dataSource = {this.state.dataSource}
+                            renderRow = {this._renderRow}
+                        />
+                    </View>    
+                </View>
             </ImageBackground>
     );
   }
@@ -159,5 +169,15 @@ const styles = StyleSheet.create({
     buttonContainer: {
         width: Dimensions.get('window').width * 0.95,
         marginTop: 10
+    },
+    infoDetail: {
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        paddingBottom: 20
+    },
+    info: {
+        paddingRight: 15,
+        paddingLeft: 15,
+        paddingTop: 15
     }
 });
