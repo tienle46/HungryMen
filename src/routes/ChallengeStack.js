@@ -16,7 +16,7 @@ const ChallengeStack = StackNavigator(
             screen: HowToDoScreen,
         },
         [RouteNames.DoAChallenge]: {
-            screens: DoAChallengeScreen
+            screen: DoAChallengeScreen
         }
     },
     {
