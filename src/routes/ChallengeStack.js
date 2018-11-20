@@ -2,13 +2,9 @@ import React, {Component} from 'react'
 import {StackNavigator} from "react-navigation"
 
 import RouteNames from './RouteNames'
-import LoginScreen from '../screens/LoginScreen'
-import RegisterScreen from '../screens/RegisterScreen'
-import FoodScreen from '../screens/FoodScreen'
-import ProfileScreen from '../screens/ProfileScreen'
-import AddFoodScreen from '../screens/AddFoodScreen'
 import ChallengeScreen from '../screens/ChallengeScreen'
 import HowToDoScreen from '../screens/HowToDoScreen'
+import DoAChallengeScreen from '../screens/DoAChallengeScreen'
 
 
 const ChallengeStack = StackNavigator(
@@ -19,6 +15,9 @@ const ChallengeStack = StackNavigator(
         [RouteNames.HowToDo]: {
             screen: HowToDoScreen,
         },
+        [RouteNames.DoAChallenge]: {
+            screens: DoAChallengeScreen
+        }
     },
     {
         initialRouteName: RouteNames.Challenge

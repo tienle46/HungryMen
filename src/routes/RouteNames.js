@@ -11,5 +11,6 @@ export default {
     ContentScreen: 'ContentScreen',
     ContentStack: 'ContentStack',
     Challenge: 'ChallengeStack',
-    HowToDo: 'HowToDoScreen' 
+    HowToDo: 'HowToDoScreen',
+    DoAChallenge: 'DoAChallengeScreen'
 }

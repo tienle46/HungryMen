@@ -43,14 +43,14 @@ export default class ChallengeDetail extends Component {
             },
             challengeNameText: {
                 fontSize: 18,
-                color: 'white',
+                color: 'rgb(80,198,209)',
                 letterSpacing:1,
                 width:300,
                 marginLeft: 10,
             },
             challengeExp: {
                 fontSize: 18,
-                color: 'white',
+                color: 'rgb(80,198,209)',
                 letterSpacing:1
             }
         })
@@ -58,12 +58,14 @@ export default class ChallengeDetail extends Component {
         return(
             <View style = {styleSheet.container}>
                 <View style = {styleSheet.mainContent}>
-                    <View>
-                        <Text style = {styleSheet.challengeNameText}>{this.shortenChallengeDetail(this.props.challengeName)}</Text>
-                    </View>
-                    <View>
-                        <Text style = {styleSheet.challengeExp}>{this.props.challengeExp} XP</Text>
-                    </View>
+                    <TouchableOpacity>
+                        <View>
+                            <Text style = {styleSheet.challengeNameText}>{this.shortenChallengeDetail(this.props.challengeName)}</Text>
+                        </View>
+                        <View>
+                            <Text style = {styleSheet.challengeExp}>{this.props.challengeExp} XP</Text>
+                        </View>
+                    </TouchableOpacity>
                 </View>
             </View>
         )
