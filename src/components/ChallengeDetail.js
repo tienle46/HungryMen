@@ -5,6 +5,8 @@ import {View,
         TouchableOpacity,
         Dimensions
     } from 'react-native'
+import Router from '../routes/Router'
+import RouteNames from '../routes/RouteNames'
 
 
 export default class ChallengeDetail extends Component {
@@ -12,19 +14,20 @@ export default class ChallengeDetail extends Component {
         super()
     }
 
-    shortenChallengeDetail = (challengeDetail) => {
+    _shortenChallengeDetail = (challengeDetail) => {
         if (challengeDetail.length > 40) {
-            return this.setCharAt(challengeDetail,40,'...')
+            return this._setCharAt(challengeDetail,40,'...')
         }
     }
 
-    setCharAt = (str,index,chr) => {
-    if(index > str.length-1) return str;
-    return str.substr(0,index) + chr;
-}
+    _setCharAt = (str,index,chr) => {
+        if(index > str.length-1) return str;
+        return str.substr(0,index) + chr;
+    }
+
 
     render() {
-        this.shortenChallengeDetail(this.props.challengeName)
+        this._shortenChallengeDetail(this.props.challengeName)
         const styleSheet = StyleSheet.create({
             container: {    
                 height: 60,
@@ -45,7 +48,7 @@ export default class ChallengeDetail extends Component {
                 fontSize: 18,
                 color: 'rgb(80,198,209)',
                 letterSpacing:1,
-                width:300,
+                width: Dimensions.get('window').width * 0.7,
                 marginLeft: 10,
             },
             challengeExp: {
@@ -57,16 +60,16 @@ export default class ChallengeDetail extends Component {
 
         return(
             <View style = {styleSheet.container}>
-                <View style = {styleSheet.mainContent}>
-                    <TouchableOpacity>
+                <TouchableOpacity onPress = {this.props.onPress}>
+                    <View style = {styleSheet.mainContent}>
                         <View>
-                            <Text style = {styleSheet.challengeNameText}>{this.shortenChallengeDetail(this.props.challengeName)}</Text>
+                            <Text style = {styleSheet.challengeNameText}>{this._shortenChallengeDetail(this.props.challengeName)}</Text>
                         </View>
                         <View>
                             <Text style = {styleSheet.challengeExp}>{this.props.challengeExp} XP</Text>
                         </View>
-                    </TouchableOpacity>
-                </View>
+                    </View>
+                </TouchableOpacity>
             </View>
         )
     }

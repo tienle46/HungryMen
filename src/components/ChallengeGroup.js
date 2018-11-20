@@ -18,6 +18,7 @@ export default class ChallengeGroup extends Component {
         this.ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
         this.state = {
         dataSource: this.ds.cloneWithRows([]),
+        type: null
         }
     }
 
@@ -34,15 +35,21 @@ export default class ChallengeGroup extends Component {
         }
         return randomChallengeList;  
     }
+    
+    _direct = (index, type) => {
+        Router.navigate(RouteNames.DoAChallenge, {challengeId: index, type:type})
+    }
 
     componentDidMount() {
         if(this.props.challengeType === 'Daily Challenges') {
             this.setState({
-                dataSource: this.ds.cloneWithRows(this.getRandomChallenge(Challenges.daily))
+                dataSource: this.ds.cloneWithRows(this.getRandomChallenge(Challenges.daily)),
+                type: 'daily'
             })
         } else if (this.props.challengeType === 'Weekly Challenges') {
             this.setState({
-                // dataSource: this.ds.cloneWithRows(this.getRandomChallenge(Challenges.weekly))
+                dataSource: this.ds.cloneWithRows(this.getRandomChallenge(Challenges.weekly)),
+                type: 'weekly'
             })
         }
     }
@@ -74,6 +81,7 @@ export default class ChallengeGroup extends Component {
                             <ChallengeDetail 
                             challengeName = {rowData.detail}
                             challengeExp = {rowData.xp}
+                            onPress = {() =>{this._direct(rowData.index, this.state.type)}}
                             />
                         )
                     }}

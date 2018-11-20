@@ -134,7 +134,6 @@ const styles = StyleSheet.create({
         flex: 1,
         justifyContent: 'center',
         backgroundColor: 'rgba(32,32,32,1)',
-        borderWidth: 1
     },  
     coloredWord: {
         color: 'rgba(80,198,209,0.8)',

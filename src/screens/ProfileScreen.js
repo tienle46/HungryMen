@@ -23,7 +23,6 @@ export default class ProfileScreen extends Component {
             currentExp: null,
             visibleEditComp: false,
             loadingComplete: false,
-            // test: 123
         }
     }
     
