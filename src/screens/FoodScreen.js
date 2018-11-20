@@ -51,15 +51,6 @@ export default class FoodScreen extends Component {
                     <Text></Text>   
                     <Text style={styles.coloredWord}> + Eggs</Text>
                 </View>
-
-
-                <TouchableOpacity style ={styles.btnLogin} onPress = {() => {this._directtoMenu()}}>
-                    <Text style={styles.text}>Menu Screen</Text>
-                </TouchableOpacity>
-
-                <TouchableOpacity style ={styles.btnLogin} onPress = {() => {this._directtoProfile()}}>
-                    <Text style={styles.text}>Profile Page</Text>
-                </TouchableOpacity>
                 
             </ImageBackground>
 
