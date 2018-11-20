@@ -3,7 +3,7 @@ import {StyleSheet, Text, View, ImageBackground, Image, TextInput, TouchableOpac
 import Router from '../routes/Router'
 import RouteNames from '../routes/RouteNames'
 import { createBottomTabNavigator } from 'react-navigation'
-import MealGroup from '../components/MealGroup'
+import ChallengeGroup from '../components/ChallengeGroup'
 import HeaderTitle from '../components/HeaderTitle'
 import moment from 'moment';
 import Storage from '../cores/Storage'
@@ -39,6 +39,12 @@ export default class ChallengeScreen extends Component {
                         <Text style={styles.nocolorWord}>Next meal in <Text style={styles.coloredWord}> 20 min </Text> | Daily calories left <Text style={styles.coloredWord}> 1000 </Text> </Text>
                     </View>
                 </View>
+                <ChallengeGroup 
+                    challengeType = 'Daily Challenges'
+                />
+                <ChallengeGroup 
+                    challengeType = 'Weekly Challenges'
+                />
             </ImageBackground>
     );
   }
