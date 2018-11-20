@@ -67,10 +67,6 @@ export default class RegisterScreen extends Component {
   render() {
     return(
       <ImageBackground style={styles.backgroundContainer}>
-        <View style={styles.logoContainer}>
-          <Text style={styles.logoText}>REGISTER</Text>
-        </View>
-
 
         <View style={styles.inputContainer}>
           <Text style={styles.userText}>Email *</Text>
@@ -117,7 +113,8 @@ const styles = StyleSheet.create({
     height: null,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: 'rgba(32,32,32,1)'
+    backgroundColor: 'rgba(32,32,32,1)',
+    paddingBottom: 100
   },
   logoContainer: {
     alignItems: 'center',

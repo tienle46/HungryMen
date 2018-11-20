@@ -62,7 +62,7 @@ export default class LoginScreen extends Component {
     return (
       <ImageBackground style={styles.backgroundContainer}>
         <View style = {styles.header}>
-          <HeaderTitle title = 'Login' />
+          <HeaderTitle title = 'LOGIN' />
         </View>
         <View style={styles.inputContainer}>
         <Text style={styles.userText}>Email</Text>
