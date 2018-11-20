@@ -11,7 +11,7 @@ const icon = require('../assets/images/logo.png')
 
 //import logo from './images/logo.jpg'
 var SQLite = require('react-native-sqlite-storage')
-db = SQLite.openDatabase({name: 'database', createFromLocation : "~www/hungryman.sqlite", location: 'Library'}, (open) => {console.log('asdasd')}, (e) => {console.log(e)});
+db = SQLite.openDatabase({name: 'dtb', createFromLocation : "~www/hungrymen.sqlite", location: 'Library'}, (open) => {console.log('asdasd')}, (e) => {console.log(e)});
 export default class LoginScreen extends Component {
   static navigationOptions = {
         header: null
