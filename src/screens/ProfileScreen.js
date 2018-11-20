@@ -1,11 +1,12 @@
 import React, {Component} from 'react'
-import {StyleSheet, Text, View, ImageBackground, Image, TextInput, TouchableOpacity, Picker} from 'react-native'
+import {StyleSheet, Text, View, ImageBackground, Image, TextInput, TouchableOpacity, Picker, ActivityIndicator} from 'react-native'
 import Router from '../routes/Router'
 import RouteNames from '../routes/RouteNames'
 import HeaderTitle from '../components/HeaderTitle'
 import Storage from '../cores/Storage'
 import EditComponent from '../components/EditComponent'
 import Toast, {positions, durations} from '../components/Toast'
+import LevelComponent from '../components/LevelComponent'
 const profileImageBackground = require('../assets/images/background2.jpg')
 const userIcon = require('../assets/images/user_icon.png')
 const editButton = require('../assets/images/edit.png')
@@ -19,7 +20,10 @@ export default class ProfileScreen extends Component {
             weight: null,
             height: null,
             goal: null,
+            currentExp: null,
             visibleEditComp: false,
+            loadingComplete: false,
+            // test: 123
         }
     }
     
@@ -97,13 +101,13 @@ export default class ProfileScreen extends Component {
                 try {
                     tx.executeSql(sql, [],(tx,results) => {
                         const result = results.rows.item(0)
-                        console.warn(result.name)
                         this.setState({
                             name: result.name ? result.name : result.username,
                             age: result.age ? result.age : 'Please fill your age',
                             weight: result.weight ? result.weight + ' kg' : 'Please fill your weight',
                             height: result.height ? result.height + ' cm' : 'Please fill your height',
                             goal: result.goal ? result.goal + ' kg': 'Please fill your goal',
+                            currentExp: result.exp,
                         })
                     })
                 }
@@ -116,9 +120,15 @@ export default class ProfileScreen extends Component {
     
     componentDidMount() {
         this._fetchData()
+
     }
 
     render() {
+        // if(!this.state.loadingComplete) {
+        //     return(
+        //         <ActivityIndicator/>
+        //     )
+        // }
         return(
             <ImageBackground style={styles.backgroundContainer}>
                 <View style = {styles.header}>
@@ -148,6 +158,13 @@ export default class ProfileScreen extends Component {
                     </ImageBackground>
                 </View>
                 <View style = {styles.info}>
+                    <View style = {styles.infoDetail}>
+                        <Text style = {styles.nocolorWord}>Level</Text>
+                        <LevelComponent 
+                            currentExp = {this.state.currentExp}
+                            loadingComplete = {(loadingComplete) => {console.warn(loadingComplete)}}
+                        />
+                    </View>
                     <View style = {styles.infoDetail}>
                         <Text style = {styles.nocolorWord}>Name</Text>
                         <Text style = {styles.coloredWord}>{this.state.name}</Text>
@@ -182,6 +199,7 @@ const styles = StyleSheet.create({
     infoDetail: {
         flexDirection: 'row',
         justifyContent: 'space-between',
+        alignItems: 'center',
         paddingBottom: 20
     },
     info: {

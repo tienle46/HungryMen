@@ -43,7 +43,7 @@ export default class RegisterScreen extends Component {
         tx.executeSql(getUserSql, [],(tx,results) => {
           var len = results.rows.length
           if (len == 0) {
-            var insertSql = 'INSERT INTO User (username, password, weight, goal) VALUES(\'' + this.state.username + '\',\'' + this.state.password + '\',' + this.state.curWeight +',' + this.state.goal + ')'
+            var insertSql = 'INSERT INTO User (username, password, weight, goal, exp) VALUES(\'' + this.state.username + '\',\'' + this.state.password + '\',' + this.state.curWeight +',' + this.state.goal + ', 0)'
 
             try {
               tx.executeSql(insertSql, [], (tx,results) => {

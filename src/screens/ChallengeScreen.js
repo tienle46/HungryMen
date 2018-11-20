@@ -9,7 +9,7 @@ import moment from 'moment';
 import Storage from '../cores/Storage'
 
 var SQLite = require('react-native-sqlite-storage')
-db = SQLite.openDatabase({name: 'tramy', createFromLocation : "~www/hungryman.sqlite", location: 'Library'}, (open) => {console.log('asdasd')}, (e) => {console.log(e)});
+db = SQLite.openDatabase({name: 'dtb', createFromLocation : "~www/hungryman.sqlite", location: 'Library'}, (open) => {console.log('asdasd')}, (e) => {console.log(e)});
 
 
 export default class ChallengeScreen extends Component {
@@ -19,61 +19,7 @@ export default class ChallengeScreen extends Component {
 
     constructor() {
         super()
-        this.ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
-        this.state = {
-        dataSource: this.ds.cloneWithRows([
-            {
-                type: 'daily',
-                detail: 'Stop where you are, look to your right. What is the first color that you see? What vegetable/fruit it reminds you? Eat That!',
-                xp: '100'
-            },
-            {
-                type: 'daily',
-                detail: 'Open your browser and close your eyes. Press 1 letter. Based on that letter find an item with vitamin D. If failed: try again.',
-                xp: '100'
-            },
-            {
-                type: 'daily',
-                detail: 'Think of the candy that you are craving. Find something of the same color. Form shape of candy with that food. Eat it with your hands',
-                xp: '100'
-            },
-            {
-                type: 'daily',
-                detail: 'Walk through place that doesn’t have any vehicles. Take a breath. How does it smell? What food comes to your mind. Make food from it. ',
-                xp: '100'
-            },
-            {
-                type: 'daily',
-                detail: 'Open your fridge and grab first thing that you see. Think some food that you can make from it. Make that food.',
-                xp: '100'
-            },
-            {
-                type: 'weekly',
-                detail: 'Go to grocery store. Go to vegetable section. Think last vegetable/fruit that you bought. Take next vegetable/fruit beside it. ',
-                xp: '200'
-            },
-            {
-                type: 'weekly',
-                detail: 'Walk to somewhere. Put your music away. Listen to sounds/voices. If you hear something that reminds you about food remember it. Do meal concerning to this. ',
-                xp: '200'
-            },
-            {
-                type: 'weekly',
-                detail: 'You are thirsty, look around what kind of drink comes to your mind? Drink it!',
-                xp: '200'
-            },
-            {
-                type: 'weekly',
-                detail: 'Listen to some music, what kind of fruit/vegetable does the song remind you of? Eat it!',
-                xp: '200'
-            },
-            {
-                type: 'weekly',
-                detail: 'Open your phone, check photos, pick one, what kind of fruit/vegetable does it remind you? Eat it!',
-                xp: '200'
-            }
-        ]),
-        }
+        
     }
 
     _renderRow(rowData){
@@ -91,19 +37,7 @@ export default class ChallengeScreen extends Component {
                     <HeaderTitle title = 'CHALLENGES' />
                     <View style={styles.reminder}>
                         <Text style={styles.nocolorWord}>Next meal in <Text style={styles.coloredWord}> 20 min </Text> | Daily calories left <Text style={styles.coloredWord}> 1000 </Text> </Text>
-                        <Text style={styles.nocolorWord}>Daily Challenges</Text>
                     </View>
-                    <TouchableOpacity style={styles.instruction} onPress = {() => {this._directtoInstruction()}}>
-                        <Text>?</Text>
-                    </TouchableOpacity>
-                </View>
-                <View style = {styles.info}>
-                    <View style={styles.infoDetail}>
-                        <ListView
-                            dataSource = {this.state.dataSource}
-                            renderRow = {this._renderRow}
-                        />
-                    </View>    
                 </View>
             </ImageBackground>
     );

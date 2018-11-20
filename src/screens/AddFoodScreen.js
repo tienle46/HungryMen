@@ -8,7 +8,7 @@ import DropdownMenu from 'react-native-dropdown-menu';
 import Toast, {positions, durations} from '../components/Toast'
 
 var SQLite = require('react-native-sqlite-storage')
-db = SQLite.openDatabase({name: 'qwe', createFromLocation : "~www/hungrymen.sqlite", location: 'Library'}, (open) => {console.log('asdasd')}, (e) => {console.log(e)});
+db = SQLite.openDatabase({name: 'dtb', createFromLocation : "~www/hungrymen.sqlite", location: 'Library'}, (open) => {console.log('asdasd')}, (e) => {console.log(e)});
 export default class AddFoodScreen extends Component {
 
     constructor() {
