@@ -39,6 +39,9 @@ export default class ChallengeScreen extends Component {
                         <Text style={styles.nocolorWord}>Next meal in <Text style={styles.coloredWord}> 20 min </Text> | Daily calories left <Text style={styles.coloredWord}> 1000 </Text> </Text>
                     </View>
                 </View>
+                <TouchableOpacity style={styles.questionMark} onPress ={() => {this._directtoInstruction()}}>
+                        <Text style={styles.nocolorWord}>Instruction</Text>
+                </TouchableOpacity>
                 <ChallengeGroup 
                     challengeType = 'Daily Challenges'
                 />
@@ -119,5 +122,9 @@ const styles = StyleSheet.create({
         paddingRight: 15,
         paddingLeft: 15,
         paddingTop: 15
-    }
+    },
+    questionMark: {
+        borderWidth: 1,
+    },
+
 });
