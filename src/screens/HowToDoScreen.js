@@ -99,7 +99,7 @@ const styles = StyleSheet.create({
         alignItems: 'stretch'
     },
     nocolorWordTitle1: {
-        justifyContent: 'flex-start'
+        justifyContent: 'flex-start',
     },
     number1: {
         justifyContent: 'flex-end'

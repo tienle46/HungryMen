@@ -47,7 +47,7 @@ export default class MealGroup extends Component {
                             dataSource: this.ds.cloneWithRows(dishes),
                             mealCalories: newMealCalories
                         })
-                        var updateSql = "UPDATE Meal SET calories =" + this.state.newMealCalories + " WHERE id =" + this.props.id
+                        var updateSql = "UPDATE Meal SET calories =" + newMealCalories + " WHERE id =" + this.props.id
                         try {
                             tx.executeSql(updateSql)
                         } catch(e) {

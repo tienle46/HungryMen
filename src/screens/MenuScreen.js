@@ -7,6 +7,7 @@ import MealGroup from '../components/MealGroup'
 import HeaderTitle from '../components/HeaderTitle'
 import moment from 'moment';
 import Storage from '../cores/Storage'
+import { AnimatedCircularProgress } from 'react-native-circular-progress';
 
 var SQLite = require('react-native-sqlite-storage')
 db = SQLite.openDatabase({name: 'dtb', createFromLocation : "~www/hungrymen.sqlite", location: 'Library'}, (open) => {console.log('asdasd')}, (e) => {console.log(e)});
@@ -19,7 +20,9 @@ export default class MenuScreen extends Component {
         super()
         this.ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
         this.state = {
-        dataSource: this.ds.cloneWithRows([]),
+            dataSource: this.ds.cloneWithRows([]),
+            mealsCalories: 0,
+            fill: 0
         }
     }
 
@@ -33,16 +36,20 @@ export default class MenuScreen extends Component {
                 try {
                     tx.executeSql(sql, [],(tx,results) => {
                         var len = results.rows.length
+                        var totalCalories = 0
                         for (var i = 0; i < len; i++) {
                             var row = results.rows.item(i)
                             var mealTime = moment(row.date*1000).format("MM-DD-YYYY")
                             if (mealTime === today) {
                                 var meal = {id: row.id, type: row.type, date:row.date, calories: row.calories}
                                 meals.push(meal)
+                                totalCalories = totalCalories + row.calories
                             }
                         }
                         this.setState({
                             dataSource: this.ds.cloneWithRows(meals),
+                            mealsCalories: totalCalories,
+                            fill: this.calculateProgress(this.state.mealsCalories)
                         })
                     })
                 }
@@ -53,12 +60,17 @@ export default class MenuScreen extends Component {
         })
     }
 
+    calculateProgress = (calories) => {
+        return calories/2000 <= 1 ? calories/2000 * 100 : 100
+    }   
+
     componentDidMount() {
         this._fetchData()
         this._subscribe = this.props.navigation.addListener('didFocus', () => {
             this._fetchData()
         });
     }
+
 
     componentWillUnmount() {
         this._subscribe.remove()
@@ -122,6 +134,22 @@ export default class MenuScreen extends Component {
                     <TouchableOpacity onPress = {this.onButtonAddMealClick}>
                         <Text style = {styles.addFoodBtnText}>+ Add Meal</Text>
                     </TouchableOpacity>
+                </View>
+                <View style = {styles.progressWrapper}>
+                    <AnimatedCircularProgress
+                        size={130}
+                        width={10}
+                        fill={this.state.fill}
+                        tintColor="#00e0ff"
+                        backgroundColor="#3d5875">
+                        {
+                            (fill) => (
+                            <Text style={styles.points}>
+                                { this.state.fill }
+                            </Text>
+                            )
+                        }
+                    </AnimatedCircularProgress>
                 </View>
             </ImageBackground>
     );
@@ -189,6 +217,12 @@ const styles = StyleSheet.create({
     },
     buttonContainer: {
         width: Dimensions.get('window').width * 0.95,
-        marginTop: 10
+        marginTop: 10,
+        marginBottom: 20
+    },
+    progressWrapper: {
+        alignItems: 'center',
+        width: Dimensions.get('window').width,
+        marginBottom: 20
     }
 });
