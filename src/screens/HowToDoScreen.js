@@ -14,7 +14,7 @@ export default class HowToDoScreen extends Component {
     static navigationOptions = {
         headerTitle:(
         <HeaderTitle 
-            title = 'How to do challenges'
+            title = 'HOW TO DO'
         />
         ),
         headerStyle: {
@@ -61,7 +61,8 @@ export default class HowToDoScreen extends Component {
 const styles = StyleSheet.create({
     backgroundContainer: {
         backgroundColor: 'rgb(38,38,38)',
-        flex: 1
+        flex: 1,
+        alignItems: 'center'
     },  
     coloredWord: {
         color: 'rgba(80,198,209,0.8)',
@@ -121,6 +122,7 @@ const styles = StyleSheet.create({
     instruction: {
         flex: 1,
         flexDirection: 'column',
+        width: Dimensions.get('window').width * 0.9
     },
     two: {
         marginTop: 10

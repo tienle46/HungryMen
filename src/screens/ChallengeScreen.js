@@ -26,22 +26,22 @@ export default class ChallengeScreen extends Component {
         return <Text style={styles.nocolorWord}>{rowData.detail}</Text>
     }
 
-     _directtoInstruction() {
-    Router.navigate(RouteNames.HowToDo)
-  }
+     _directToInstruction = () => {
+        Router.navigate(RouteNames.HowToDo)
+    }
 
     render() {
         return(
             <ImageBackground style={styles.backgroundContainer}>
                 <View style = {styles.header}>
                     <HeaderTitle title = 'CHALLENGES' />
+                    <TouchableOpacity style ={styles.instruction} onPress ={this._directToInstruction}>
+                        <Text style = {{fontSize: 20, color: 'white', fontWeight: 'bold'}}>?</Text>
+                    </TouchableOpacity>
                     <View style={styles.reminder}>
                         <Text style={styles.nocolorWord}>Next meal in <Text style={styles.coloredWord}> 20 min </Text> | Daily calories left <Text style={styles.coloredWord}> 1000 </Text> </Text>
                     </View>
                 </View>
-                <TouchableOpacity style={styles.questionMark} onPress ={() => {this._directtoInstruction()}}>
-                        <Text style={styles.nocolorWord}>Instruction</Text>
-                </TouchableOpacity>
                 <ChallengeGroup 
                     challengeType = 'Daily Challenges'
                 />
@@ -126,5 +126,15 @@ const styles = StyleSheet.create({
     questionMark: {
         borderWidth: 1,
     },
-
+    instruction: {
+        width: 30,
+        height: 30,
+        borderRadius: 30/2,
+        backgroundColor: 'rgba(80,198,209,0.8)',
+        position: 'absolute',
+        right: '5%',
+        top: '30%',
+        alignItems: 'center',
+        justifyContent: 'center'
+    }
 });

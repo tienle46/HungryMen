@@ -21,6 +21,7 @@ export default class ProfileScreen extends Component {
             height: null,
             goal: null,
             currentExp: null,
+            ranking: null,
             visibleEditComp: false,
             loadingComplete: false,
         }
@@ -91,6 +92,7 @@ export default class ProfileScreen extends Component {
             visibleEditComp: false
         })
         Toast.show('Successfully updated')
+        this._fetchData()
     }
     _fetchData() {
         Storage.get("userId").then(res => {
@@ -108,6 +110,7 @@ export default class ProfileScreen extends Component {
                             goal: result.goal ? result.goal + ' kg': 'Please fill your goal',
                             currentExp: result.exp,
                         })
+                        this._getUserPlace(userId, result.exp)
                     })
                 }
                 catch(e) {
@@ -116,10 +119,30 @@ export default class ProfileScreen extends Component {
             })
         })
     }
+
+    _getUserPlace(userId, userExp) {
+        db.transaction((tx) => {
+            const sql = `SELECT (SELECT COUNT(*) FROM User WHERE exp < ${userExp}) AS 'position' FROM User WHERE id = ${userId}`
+            try {
+                tx.executeSql(sql, [],(tx,results) => {
+                    const result = results.rows.item(0)
+                    this.setState({
+                        ranking: result.position
+                    })
+                })
+            }
+            catch(e) {
+                console.log('error:' +e)
+            }
+        })
+    }
     
+    componentDidUpdate(prevProps, prevState) {
+        this._fetchData()
+    }
+
     componentDidMount() {
         this._fetchData()
-
     }
 
     render() {
@@ -183,6 +206,10 @@ export default class ProfileScreen extends Component {
                     <View style = {styles.infoDetail}>
                         <Text style = {styles.nocolorWord}>Goal</Text>
                         <Text style = {styles.coloredWord}>{this.state.goal}</Text>
+                    </View>
+                    <View style = {styles.infoDetail}>
+                        <Text style = {styles.nocolorWord}>Ranking</Text>
+                        <Text style = {styles.coloredWord}>{this.state.ranking}</Text>
                     </View>
                 </View>
             </ImageBackground>

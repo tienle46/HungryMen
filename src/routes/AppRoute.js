@@ -11,7 +11,6 @@ import FoodStack from "./FoodStack"
 import RegisterScreen from "../screens/RegisterScreen"
 import RouteNames from './RouteNames'
 import ContentStack from './ContentStack'
-import AppStack from './AppStack'
 import MealStack from './MealStack'
 import AddMealScreen from "../screens/AddMealScreen"
 import FoodScreen from "../screens/FoodScreen"
@@ -30,18 +29,10 @@ const styles = StyleSheet.create({
 const AppRoute = SwitchNavigator(
     {
         [RouteNames.Auth]: AuthStack,
-        // [RouteNames.AppStack]: AppStack,
-        // [RouteNames.FoodStack]: FoodStack,
         [RouteNames.ContentStack]: ContentStack,
-        // [RouteNames.AddMeal]: AddMealScreen,
-        // [RouteNames.FoodScreen]: FoodScreen,
-        // [RouteNames.LoginScreen]: LoginScreen,
-        // [RouteNames.MenuScreen]: MenuScreen,
         [RouteNames.ProfileScreen]: ProfileScreen,
         [RouteNames.MealStack]: MealStack,
-        // [RouteNames.AddFood]: AddFoodScreen
         [RouteNames.ChallengeStack]: ChallengeStack
-        //[RouteNames.HowToDo]: HowToDoScreen
     },
     {
         initialRouteName: RouteNames.AuthStack

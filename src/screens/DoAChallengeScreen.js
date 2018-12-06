@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {StyleSheet, Text, View, ImageBackground, Image, TextInput, TouchableOpacity, Picker, Dimensions, ListView} from 'react-native'
+import {StyleSheet, Text, View, ImageBackground, Image, TextInput, TouchableOpacity, Picker, Dimensions, ListView, TouchableWithoutFeedback} from 'react-native'
 import Router from '../routes/Router'
 import RouteNames from '../routes/RouteNames'
 import HeaderTitle from '../components/HeaderTitle'
@@ -105,10 +105,20 @@ export default class DoAChallengeScreen extends Component {
             boxClicked: true
         })
     }
+    
+    onFinishClicked = () => {
+        Router.navigate(RouteNames.Challenge)
+    }
 
     render() {
         return(
             <View style = {styles.container}>
+                {this.state.boxClicked ? 
+                <TouchableOpacity
+                    style = {{width: '100%', height: '100%', position: 'absolute', zIndex: 10000}}
+                    onPress = {this.onFinishClicked}>
+                </TouchableOpacity> 
+                : null}
                 <View style = {styles.detailGroup}>
                     <Text style = {styles.detailText}>{this._getChallenge(Router.getParam(this, 'challengeId')).detail}</Text>
                 </View>
@@ -160,7 +170,7 @@ export default class DoAChallengeScreen extends Component {
                     : null
                     }
                 </View>
-
+                
             </View>
     );
   }
