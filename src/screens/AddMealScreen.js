@@ -66,7 +66,7 @@ export default class AddMealScreen extends Component {
                     <View style = {styles.dateSelect}>
                         <Text style={styles.datePickerText}>Time:</Text>
                         <DatePicker 
-                        style={{width: 200}}
+                        style={{width: 150}}
                         date={this.state.date}
                         mode="datetime"
                         placeholder="select time"

@@ -23,7 +23,8 @@ export default class MenuScreen extends Component {
             dataSource: this.ds.cloneWithRows([]),
             mealsCalories: 0,
             fill: 0,
-            prefill: 0
+            prefill: 0,
+            progressColor: "#00e0ff"
         }
     }
 
@@ -65,10 +66,14 @@ export default class MenuScreen extends Component {
         return calories/2000 <= 1 ? calories/2000 * 100 : 100
     }
 
-    
-    componentWillMount() {
-
+    modifyColor= (fill) => {
+        if(fill <=90) {
+            return "#00e0ff"
+        } else if (fill <=99 && fill >90) {
+            return "rgb(93,252,54)"
+        } else return "red"
     }
+
     componentDidMount() {
         this._fetchData()
         this._subscribe = this.props.navigation.addListener('didFocus', () => {
@@ -79,7 +84,8 @@ export default class MenuScreen extends Component {
     componentDidUpdate(prevProv,prevState) {
         if(prevState.fill !== this.state.fill) {
             this.setState({
-                prefill: prevState.fill
+                prefill: prevState.fill,
+                progressColor: this.modifyColor(this.state.fill)
             })
         }
      }
@@ -118,6 +124,89 @@ export default class MenuScreen extends Component {
     }
 
     render() {
+        const styles = StyleSheet.create({
+            backgroundContainer: {
+                backgroundColor: 'rgb(38,38,38)',
+                flex: 1
+            },  
+            coloredWord: {
+                color: 'rgba(80,198,209,0.8)',
+                fontSize: 15,
+                borderColor: 'white',
+                borderWidth: 5,
+                alignItems: 'center',
+                letterSpacing: 1
+
+            },
+            nocolorWord: {
+                color: 'white',
+                fontSize: 15,
+                alignItems: 'flex-start',
+                letterSpacing: 1
+            },
+            nocolorWordTitle: {
+                color: 'white',
+                fontSize: 20,
+                justifyContent: 'flex-start',
+            },
+            logoText: {
+                color: 'white',
+                fontSize: 30,
+                fontWeight: 'bold',
+                justifyContent: 'center',
+            },
+            reminder: {
+            },
+            number: {
+                alignItems: 'flex-end'
+            },
+
+            meal: {
+                flex:1,
+                flexDirection: 'row',
+                justifyContent: 'space-between',
+                alignItems: 'stretch'
+            },
+            nocolorWordTitle1: {
+                justifyContent: 'flex-start'
+            },
+            number1: {
+                justifyContent: 'flex-end'
+            },
+            header: {
+                    alignItems: 'center',
+                    backgroundColor: 'rgb(32,32,32)',
+                    flexDirection: 'column',
+                    paddingTop: 20,
+                    height: 90
+            },
+            addFoodBtnText: {
+                color: 'rgb(80,198,209)',
+                fontSize: 18
+            },
+            buttonContainer: {
+                width: Dimensions.get('window').width * 0.95,
+                marginTop: 10,
+                marginBottom: 20
+            },
+            progressWrapper: {
+                alignItems: 'center',
+                width: Dimensions.get('window').width,
+                marginBottom: 20
+            },
+            points: {
+                fontSize: 16,
+                fontWeight: 'bold',
+                color: this.state.progressColor
+            },
+            pointText: {
+                fontSize: 14,
+                color: this.state.progressColor
+            },
+            circle: {
+                alignItems: 'center'
+            }
+        });
         return(
             <ImageBackground style={styles.backgroundContainer}>
                 <View style = {styles.header}>
@@ -154,7 +243,7 @@ export default class MenuScreen extends Component {
                         rotation = {0}
                         fill={this.state.fill}
                         prefill = {this.state.prefill}
-                        tintColor="#00e0ff"
+                        tintColor= {this.state.progressColor}
                         backgroundColor="#3d5875">
                         
                         {
@@ -171,86 +260,4 @@ export default class MenuScreen extends Component {
     );
   }
 }
-const styles = StyleSheet.create({
-    backgroundContainer: {
-        backgroundColor: 'rgb(38,38,38)',
-        flex: 1
-    },  
-    coloredWord: {
-        color: 'rgba(80,198,209,0.8)',
-        fontSize: 15,
-        borderColor: 'white',
-        borderWidth: 5,
-        alignItems: 'center',
-        letterSpacing: 1
 
-    },
-    nocolorWord: {
-        color: 'white',
-        fontSize: 15,
-        alignItems: 'flex-start',
-        letterSpacing: 1
-    },
-    nocolorWordTitle: {
-        color: 'white',
-        fontSize: 20,
-        justifyContent: 'flex-start',
-    },
-    logoText: {
-        color: 'white',
-        fontSize: 30,
-        fontWeight: 'bold',
-        justifyContent: 'center',
-    },
-    reminder: {
-    },
-    number: {
-        alignItems: 'flex-end'
-    },
-
-    meal: {
-        flex:1,
-        flexDirection: 'row',
-        justifyContent: 'space-between',
-        alignItems: 'stretch'
-    },
-    nocolorWordTitle1: {
-        justifyContent: 'flex-start'
-    },
-    number1: {
-        justifyContent: 'flex-end'
-    },
-    header: {
-            alignItems: 'center',
-            backgroundColor: 'rgb(32,32,32)',
-            flexDirection: 'column',
-            paddingTop: 20,
-            height: 90
-    },
-    addFoodBtnText: {
-        color: 'rgb(80,198,209)',
-        fontSize: 18
-    },
-    buttonContainer: {
-        width: Dimensions.get('window').width * 0.95,
-        marginTop: 10,
-        marginBottom: 20
-    },
-    progressWrapper: {
-        alignItems: 'center',
-        width: Dimensions.get('window').width,
-        marginBottom: 20
-    },
-    points: {
-        fontSize: 16,
-        fontWeight: 'bold',
-        color: "#00e0ff"
-    },
-    pointText: {
-        fontSize: 14,
-        color: "#00e0ff"
-    },
-    circle: {
-        alignItems: 'center'
-    }
-});
