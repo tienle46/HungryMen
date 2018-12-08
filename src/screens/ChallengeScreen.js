@@ -38,9 +38,6 @@ export default class ChallengeScreen extends Component {
                     <TouchableOpacity style ={styles.instruction} onPress ={this._directToInstruction}>
                         <Text style = {{fontSize: 20, color: 'white', fontWeight: 'bold'}}>?</Text>
                     </TouchableOpacity>
-                    <View style={styles.reminder}>
-                        <Text style={styles.nocolorWord}>Next meal in <Text style={styles.coloredWord}> 20 min </Text> | Daily calories left <Text style={styles.coloredWord}> 1000 </Text> </Text>
-                    </View>
                 </View>
                 <ChallengeGroup 
                     challengeType = 'Daily Challenges'
@@ -103,7 +100,7 @@ const styles = StyleSheet.create({
             backgroundColor: 'rgb(32,32,32)',
             flexDirection: 'column',
             paddingTop: 20,
-            height: 90
+            height: 60
     },
     addFoodBtnText: {
         color: 'rgb(80,198,209)',

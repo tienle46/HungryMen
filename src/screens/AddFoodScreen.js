@@ -131,15 +131,14 @@ const styles = StyleSheet.create({
     backgroundContainer: {
         flex: 1,
         backgroundColor: 'rgba(32,32,32,1)',
-        borderWidth: 1
     },
     foodAmount: {
         zIndex: 0,
         flexDirection: 'row'
     },
     foodAmountTextInput: {
-        width: 200,
-        height: 50,
+        width: 150,
+        height: 40,
         borderRadius: 10,
         fontSize: 24,
         paddingLeft: 25,

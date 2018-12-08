@@ -90,7 +90,7 @@ export default class MealGroup extends Component {
                 <MealHeader
                     mealTime = {this.props.mealTime}
                     mealName = {this.props.mealName}
-                    mealCalories = {this.state.mealCalories}
+                    mealCalories = {parseInt(this.state.mealCalories)}
                 />
                 <ListView 
                     dataSource={this.state.dataSource}

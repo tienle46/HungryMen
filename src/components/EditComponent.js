@@ -13,10 +13,10 @@ export default class EditComponent extends Component {
     render() {
         return(
             <View style = {styles.container}>
-                <TouchableOpacity onPress = {this.props.onCloseButtonPress}>
+                <TouchableOpacity onPress = {this.props.onCloseButtonPress} style = {styles.closeButton}>
                     <Image
                     source = {closeButton}
-                    style = {styles.closeButton}
+                    style = {styles.xImage}
                     />
                 </TouchableOpacity>
                 <View style = {styles.editGroup}>
@@ -82,16 +82,16 @@ export default class EditComponent extends Component {
 
 const styles = StyleSheet.create({
     container: {
-        width: 400,
-        height: 550,
+        width: Dimensions.get('window').width * 0.95,
+        height: Dimensions.get('window').height * 0.85,
         borderWidth: 1,
         backgroundColor: 'rgba(32,32,32,1)',
         position: 'absolute',
         top: '50%',
         left: '50%',
         transform: [
-            {translateX: -400/2},
-            {translateY: -480/2}
+            {translateX: -Dimensions.get('window').width * 0.95/2},
+            {translateY: -Dimensions.get('window').height * 0.85/2}
         ],
         zIndex: 100
     },
@@ -99,8 +99,13 @@ const styles = StyleSheet.create({
         width:25,
         height:25,
         position: 'absolute',
-        top: 5,
-        right: 5
+        top:5,
+        right:5,
+        zIndex: 1000
+    },
+    xImage: {
+        width:25,
+        height:25,
     },
     inputContainer:{
         marginTop: 20
@@ -124,8 +129,9 @@ const styles = StyleSheet.create({
         letterSpacing: 1
     },
     editGroup: {
-        marginLeft: 20,
-        marginTop: 20
+        marginLeft: 10,
+        marginTop: 10,
+        zIndex: 10
     },
     btnConfirm: {
         width: 100,

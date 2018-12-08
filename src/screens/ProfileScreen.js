@@ -122,12 +122,12 @@ export default class ProfileScreen extends Component {
 
     _getUserPlace(userId, userExp) {
         db.transaction((tx) => {
-            const sql = `SELECT (SELECT COUNT(*) FROM User WHERE exp < ${userExp}) AS 'position' FROM User WHERE id = ${userId}`
+            const sql = `SELECT (SELECT COUNT(*) FROM User WHERE exp > ${userExp}) AS 'position' FROM User WHERE id = ${userId}`
             try {
                 tx.executeSql(sql, [],(tx,results) => {
                     const result = results.rows.item(0)
                     this.setState({
-                        ranking: result.position
+                        ranking: result.position +1
                     })
                 })
             }
@@ -135,10 +135,6 @@ export default class ProfileScreen extends Component {
                 console.log('error:' +e)
             }
         })
-    }
-    
-    componentDidUpdate(prevProps, prevState) {
-        this._fetchData()
     }
 
     componentDidMount() {
@@ -155,9 +151,6 @@ export default class ProfileScreen extends Component {
             <ImageBackground style={styles.backgroundContainer}>
                 <View style = {styles.header}>
                     <HeaderTitle title = 'PROFILE' />
-                    <View style={styles.reminder}>
-                        <Text style={styles.nocolorWord1}>Next meal in <Text style={styles.coloredWord1}> 20 min </Text> | Daily calories left <Text style={styles.coloredWord1}> 1000 </Text> </Text>
-                    </View>
                 </View>
                 {this.state.visibleEditComp ? <EditComponent 
                 onCloseButtonPress = {this.onButtonCloseClick}
@@ -286,7 +279,7 @@ const styles = StyleSheet.create({
         backgroundColor: 'rgb(32,32,32)',
         flexDirection: 'column',
         paddingTop: 20,
-        height: 90
+        height: 60
     },
     nocolorWord: {
         color: 'white',

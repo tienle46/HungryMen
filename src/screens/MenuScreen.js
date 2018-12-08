@@ -212,7 +212,7 @@ export default class MenuScreen extends Component {
                 <View style = {styles.header}>
                     <HeaderTitle title = 'HOME' />
                     <View style={styles.reminder}>
-                        <Text style={styles.nocolorWord}>Next meal in <Text style={styles.coloredWord}> 20 min </Text> | Daily calories left <Text style={styles.coloredWord}> 1000 </Text> </Text>
+                        <Text style={styles.nocolorWord}>Next meal in <Text style={styles.coloredWord}> 20 min </Text> | Daily calories left <Text style={styles.coloredWord}> {2000 - parseInt(this.state.mealsCalories)} </Text> </Text>
                     </View>
                 </View>
                 <ListView 
@@ -249,7 +249,7 @@ export default class MenuScreen extends Component {
                         {
                             (fill) => (
                                 <View style={styles.circle}>
-                                    <Text style={styles.points}>{this.state.mealsCalories}/2000</Text>
+                                    <Text style={styles.points}>{parseInt(this.state.mealsCalories)}/2000</Text>
                                     <Text style={styles.pointText}>Daily Calories</Text>
                                 </View>
                             )
