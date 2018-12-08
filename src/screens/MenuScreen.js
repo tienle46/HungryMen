@@ -22,7 +22,8 @@ export default class MenuScreen extends Component {
         this.state = {
             dataSource: this.ds.cloneWithRows([]),
             mealsCalories: 0,
-            fill: 0
+            fill: 0,
+            prefill: 0
         }
     }
 
@@ -49,7 +50,7 @@ export default class MenuScreen extends Component {
                         this.setState({
                             dataSource: this.ds.cloneWithRows(meals),
                             mealsCalories: totalCalories,
-                            fill: this.calculateProgress(this.state.mealsCalories)
+                            fill: this.calculateProgress(totalCalories)
                         })
                     })
                 }
@@ -62,8 +63,12 @@ export default class MenuScreen extends Component {
 
     calculateProgress = (calories) => {
         return calories/2000 <= 1 ? calories/2000 * 100 : 100
-    }   
+    }
 
+    
+    componentWillMount() {
+
+    }
     componentDidMount() {
         this._fetchData()
         this._subscribe = this.props.navigation.addListener('didFocus', () => {
@@ -71,6 +76,13 @@ export default class MenuScreen extends Component {
         });
     }
 
+    componentDidUpdate(prevProv,prevState) {
+        if(prevState.fill !== this.state.fill) {
+            this.setState({
+                prefill: prevState.fill
+            })
+        }
+     }
 
     componentWillUnmount() {
         this._subscribe.remove()
@@ -139,14 +151,18 @@ export default class MenuScreen extends Component {
                     <AnimatedCircularProgress
                         size={130}
                         width={10}
+                        rotation = {0}
                         fill={this.state.fill}
+                        prefill = {this.state.prefill}
                         tintColor="#00e0ff"
                         backgroundColor="#3d5875">
+                        
                         {
                             (fill) => (
-                            <Text style={styles.points}>
-                                { this.state.fill }
-                            </Text>
+                                <View style={styles.circle}>
+                                    <Text style={styles.points}>{this.state.mealsCalories}/2000</Text>
+                                    <Text style={styles.pointText}>Daily Calories</Text>
+                                </View>
                             )
                         }
                     </AnimatedCircularProgress>
@@ -224,5 +240,17 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         width: Dimensions.get('window').width,
         marginBottom: 20
+    },
+    points: {
+        fontSize: 16,
+        fontWeight: 'bold',
+        color: "#00e0ff"
+    },
+    pointText: {
+        fontSize: 14,
+        color: "#00e0ff"
+    },
+    circle: {
+        alignItems: 'center'
     }
 });
