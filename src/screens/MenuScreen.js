@@ -8,6 +8,7 @@ import HeaderTitle from '../components/HeaderTitle'
 import moment from 'moment';
 import Storage from '../cores/Storage'
 import { AnimatedCircularProgress } from 'react-native-circular-progress';
+const homeIcon = require('../assets/images/home.png')
 
 var SQLite = require('react-native-sqlite-storage')
 db = SQLite.openDatabase({name: 'dtb', createFromLocation : "~www/hungrymen.sqlite", location: 'Library'}, (open) => {console.log('asdasd')}, (e) => {console.log(e)});

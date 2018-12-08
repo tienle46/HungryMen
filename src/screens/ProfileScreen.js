@@ -10,8 +10,23 @@ import LevelComponent from '../components/LevelComponent'
 const profileImageBackground = require('../assets/images/background2.jpg')
 const userIcon = require('../assets/images/user_icon.png')
 const editButton = require('../assets/images/edit.png')
+const profileIcon = require('../assets/images/profile.png')
 
 export default class ProfileScreen extends Component {
+    static navigationOptions = {
+        tabBarOptions: {
+            showLabel: false,
+            activeTintColor: '#00e0ff',
+            inactiveTintColor: 'black',
+        },
+        tabBarIcon: ({ tintColor }) => (
+        <Image
+            source={profileIcon}
+            style={{width:30, height:38, tintColor: tintColor}}
+        />
+        ),
+    }
+    
     constructor() {
         super()
         this.state = {
